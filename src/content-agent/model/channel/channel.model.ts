@@ -5,3 +5,4 @@ export interface ChannelModel {
     link : LinkInterface
     posts : string[]
 }
+

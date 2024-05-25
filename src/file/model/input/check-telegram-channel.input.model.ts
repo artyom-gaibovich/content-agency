@@ -1,6 +1,6 @@
-import {InputDataModel} from "./input-data.model";
-import {TelegramChannelLinkInterface} from "../../model/link/telegram.channel.link.interface";
+import {InputModel} from "./input.model";
+import {TelegramChannelLinkInterface} from "../../../model/link/telegram.channel.link.interface";
 
-export interface CheckTelegramChannelInputModel extends InputDataModel{
+export interface CheckTelegramChannelInputModel extends InputModel{
     channelLink : TelegramChannelLinkInterface
 }

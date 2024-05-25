@@ -1,6 +1,5 @@
-import {InputModel} from "./input.model";
-import {TelegramChannelLinkInterface} from "../../../model/link/telegram.channel.link.interface";
+import {OutputModel} from "./output.model";
 
-export interface CheckTelegramChannelInputModel extends InputModel{
-    channelLink : TelegramChannelLinkInterface
+export interface CheckTelegramChannelOutputModel extends OutputModel{
+    isChannelExist : boolean
 }

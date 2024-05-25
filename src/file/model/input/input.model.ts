@@ -1,3 +1,3 @@
-export interface InputDataModel {
-
+export interface InputModel {
+    channelLink? : any
 }

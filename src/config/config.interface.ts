@@ -1,3 +1,3 @@
-export interface IConfigService {
+export interface ConfigInterface {
     get(key : string) : string
 }

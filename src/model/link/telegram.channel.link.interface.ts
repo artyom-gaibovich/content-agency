@@ -1,6 +1,6 @@
 import {LinkInterface} from "./link.interface";
 
 
-export interface TelegramLinkInterface extends LinkInterface {
+export interface TelegramChannelLinkInterface extends LinkInterface {
     url : string
 }
