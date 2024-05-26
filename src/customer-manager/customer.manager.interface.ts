@@ -1,7 +1,8 @@
 import {LinkInterface} from "../model/link/link.interface";
-import {CheckChannelResponseModel} from "./model/check.channel.response.model";
-import {CheckChannelRequestModel} from "./model/check.channel.request.model";
+import {CheckTelegramChannelOutputModel} from "../file/model/output/check-telegram-channel.output.model";
 
 export interface CustomerManagerInterface {
-    checkChannel(request : CheckChannelRequestModel) : Promise<CheckChannelResponseModel>
+
+
+    checkChannel(request : LinkInterface) : Promise<CheckTelegramChannelOutputModel>
 }

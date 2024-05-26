@@ -6,7 +6,7 @@ export class RunCheckTelegramChannelFileConfigAction {
     constructor(private configModel : RunCheckTelegramChannelFileConfigModel) {
     }
     getPath() {
-        return this.configModel.path
+        return this.configModel.pathToFile
     }
     getInputData() {
         return this.configModel.inputData

@@ -1,11 +1,9 @@
 import {LinkInterface} from "../../model/link/link.interface";
 import {IsString} from "class-validator";
 
-export interface CheckChannelRequestModel {
-    link : LinkInterface
-}
 
-export class CheckChannelRequestDto {
+
+export class CheckChannelRequestDto implements LinkInterface{
     @IsString()
-    channelLink : string;
+    url : string;
 }

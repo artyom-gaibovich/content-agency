@@ -7,12 +7,17 @@ import {RunCheckTelegramChannelFileAction} from "../../action/run/run.check.tele
 import {CheckTelegramChannelOutputModel} from "../../../file/model/output/check-telegram-channel.output.model";
 import {RunCheckTelegramChannelFileConfigAction} from "../../action/run/run.check.telegram.channel.file.config.action";
 import {CheckTelegramChannelInputModel} from "../../../file/model/input/check-telegram-channel.input.model";
+import {Injectable} from "@nestjs/common";
 
+@Injectable({
+
+})
 export class TelegramChannelRepository implements TelegramChannelRepositoryInterface {
 
     constructor(private runCheckTelegramChannelFileAction : RunCheckTelegramChannelFileAction) {
     }
     async checkOneByChannelLink(channelLink : CheckTelegramChannelInputModel) {
+        console.log(channelLink)
         return await this.runCheckTelegramChannelFileAction.run(channelLink)
     }
 }

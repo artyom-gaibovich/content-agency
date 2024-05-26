@@ -1,38 +1,22 @@
-import { Injectable } from '@nestjs/common';
-import {
-    TelegramChannelRepositoryInterface
-} from "../content-agent/repository/channel/telegram.channel.repository.interface";
+import {Injectable} from '@nestjs/common';
 import {CustomerManagerInterface} from "./customer.manager.interface";
-import {LinkInterface} from "../model/link/link.interface";
 import {TelegramChannelRepository} from "../content-agent/repository/channel/telegram.channel.repository";
-import {RunCheckTelegramChannelFileAction} from "../content-agent/action/run/run.check.telegram.channel.file.action";
-import {
-    RunCheckTelegramChannelFileConfigAction
-} from "../content-agent/action/run/run.check.telegram.channel.file.config.action";
-import path from "path";
-import {CheckChannelRequestModel} from "./model/check.channel.request.model";
-import {CheckChannelResponseModel} from "./model/check.channel.response.model";
+import {LinkInterface} from "../model/link/link.interface";
+import {CheckTelegramChannelOutputModel} from "../file/model/output/check-telegram-channel.output.model";
+
 
 @Injectable()
 export class CustomerManager implements CustomerManagerInterface{
-    constructor(private telegramChannelRepository : TelegramChannelRepositoryInterface) {
+    constructor(private telegramChannelRepository : TelegramChannelRepository) {
     }
-    async checkChannel(request : CheckChannelRequestModel): Promise<CheckChannelResponseModel> {
-        return await new TelegramChannelRepository(
-            new RunCheckTelegramChannelFileAction(
-                new RunCheckTelegramChannelFileConfigAction(
-                    {
-                        path : {
-                            path : path.join(__dirname, 'file', 'check.telegram.channel.file.js')
-                        },
-
-                    }
-                ))).checkOneByChannelLink(
+    async checkChannel(request : LinkInterface): Promise<CheckTelegramChannelOutputModel> {
+        console.log(request)
+        return await this.telegramChannelRepository.checkOneByChannelLink(
             {
                 channelLink : {
-                    url : request.link.url
+                    url : request.url
                 }
             }
-        ) as CheckChannelResponseModel
+        )
     }
 }

@@ -21,7 +21,7 @@ export class RunCheckTelegramChannelFileAction implements RunCheckTelegramChanne
     async run(link : CheckTelegramChannelInputModel) : Promise<CheckTelegramChannelOutputModel> {
         return new Promise((resolve, reject) => {
             //подумать про new Worker(), мне кажется, что здесь не должно быть слово New Worker
-            const worker = new Worker(this.config.getPath().path, { workerData : link});
+            const worker = new Worker(this.config.getPath().pathToFile, { workerData : link});
             worker.on('message', message => {
                 if(typeof message === 'boolean') {
                     resolve({
