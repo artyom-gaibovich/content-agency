@@ -9,9 +9,7 @@ async function bootstrap() {
   /*const app = await NestFactory.create(AppModule);
   await app.listen(3000);*/
   const runCheckTelegramChannelFileAction = new RunCheckTelegramChannelFileAction()
-  let result = await runCheckTelegramChannelFileAction
-      .run({path : path.join(__dirname, 'file', 'check.telegram.channel.file.js')}
-          , {channelLink : {url : 'https://t.me/habr_media'}})
+  let result =
   console.log(result)
   await new Promise(resolve => setTimeout(resolve, 3000))
 
