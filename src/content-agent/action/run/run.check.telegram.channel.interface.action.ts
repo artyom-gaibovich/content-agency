@@ -5,5 +5,5 @@ import {PathInterface} from "../../../model/path/path.interface";
 
 
 export interface RunCheckTelegramChannelInterfaceAction extends RunFileInterfaceAction {
-    run(pathToFile : PathInterface, inputData : CheckTelegramChannelInputModel) : Promise<CheckTelegramChannelOutputModel>
+    run(inputData : CheckTelegramChannelInputModel) : Promise<CheckTelegramChannelOutputModel>
 }

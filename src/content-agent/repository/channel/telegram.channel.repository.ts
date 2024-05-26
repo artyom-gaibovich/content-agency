@@ -5,12 +5,14 @@ import {TelegramChannelLinkInterface} from "../../../model/link/telegram.channel
 import path from "path";
 import {RunCheckTelegramChannelFileAction} from "../../action/run/run.check.telegram.channel.file.action";
 import {CheckTelegramChannelOutputModel} from "../../../file/model/output/check-telegram-channel.output.model";
+import {RunCheckTelegramChannelFileConfigAction} from "../../action/run/run.check.telegram.channel.file.config.action";
+import {CheckTelegramChannelInputModel} from "../../../file/model/input/check-telegram-channel.input.model";
 
 export class TelegramChannelRepository implements TelegramChannelRepositoryInterface {
 
-    async checkOneByChannelLink(channelLink : TelegramChannelLinkInterface) {
-        return await new RunCheckTelegramChannelFileAction()
-            .run({path : path.join(__dirname, 'file', 'check.telegram.channel.file.js')}
-                , {channelLink : {url : 'https://t.me/habr_media'}}) as CheckTelegramChannelOutputModel
+    constructor(private runCheckTelegramChannelFileAction : RunCheckTelegramChannelFileAction) {
+    }
+    async checkOneByChannelLink(channelLink : CheckTelegramChannelInputModel) {
+        return await this.runCheckTelegramChannelFileAction.run(channelLink)
     }
 }
