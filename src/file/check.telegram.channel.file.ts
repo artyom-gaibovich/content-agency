@@ -9,6 +9,7 @@ import {Config} from "../config/config";
         //если этот воркер не отработал, всё приложение не должно вылетать
         console.log(`Файл запущен по пути`)
         console.log(`${process.argv[1]}`)
+        console.log(workerData.channelLink.url)
         const channelLink = workerData.channelLink.url //ссылка на канал, которая прилетает из Parenta
         const config = new Config()
         const client = new TelegramClient(new StringSession(config.get('STRING_SESSION')), parseInt(config.get('API_ID')), config.get('API_HASH'), {});

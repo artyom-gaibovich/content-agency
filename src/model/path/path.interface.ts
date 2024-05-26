@@ -1,3 +1,3 @@
 export interface PathInterface {
-    path : string
+    pathToFile : string
 }

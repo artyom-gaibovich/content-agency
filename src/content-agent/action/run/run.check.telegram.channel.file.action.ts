@@ -4,19 +4,24 @@ import {RunCheckTelegramChannelInterfaceAction} from "./run.check.telegram.chann
 import {PathInterface} from "../../../model/path/path.interface";
 import {CheckTelegramChannelInputModel} from "../../../file/model/input/check-telegram-channel.input.model";
 import {CheckTelegramChannelOutputModel} from "../../../file/model/output/check-telegram-channel.output.model";
+import {RunCheckTelegramChannelFileConfigAction} from "./run.check.telegram.channel.file.config.action";
 
 
 
 export class RunCheckTelegramChannelFileAction implements RunCheckTelegramChannelInterfaceAction{
+
+    constructor(private config : RunCheckTelegramChannelFileConfigAction) {
+    }
     //надо ли добавлять интерфейсы здесь?
     //вероятно, стоит
     //и ещё здесь может возникать ошибка, допустим SessionString - не правильная, и мы получим false(хотя канал при этом может существовать)
     // и ещё вопрос, стоит ли это проверка на instance Boolean не лишняя, и можно ли декомпозировать просто на Run без привязки к тг-файлам
     // Стоило ли декомпозировать на Input/Output модель???
     // Если да --> то есть ли смысл в модели канала?
-    async run(pathToFile : PathInterface, inputData : CheckTelegramChannelInputModel) : Promise<CheckTelegramChannelOutputModel> {
+    async run(link : CheckTelegramChannelInputModel) : Promise<CheckTelegramChannelOutputModel> {
         return new Promise((resolve, reject) => {
-            const worker = new Worker(pathToFile.path, { workerData : inputData});
+            //подумать про new Worker(), мне кажется, что здесь не должно быть слово New Worker
+            const worker = new Worker(this.config.getPath().pathToFile, { workerData : link});
             worker.on('message', message => {
                 if(typeof message === 'boolean') {
                     resolve({
@@ -24,7 +29,7 @@ export class RunCheckTelegramChannelFileAction implements RunCheckTelegramChanne
                     })
                 }
                 else {
-                    console.log(`Сообщение не соотствтвует типу Boolean`)
+                    console.log(`Сообщение не соответствует типу Boolean`)
                     console.log(message)
                     resolve({
                         isChannelExist : false
