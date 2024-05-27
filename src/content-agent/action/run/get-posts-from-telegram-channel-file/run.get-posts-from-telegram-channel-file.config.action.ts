@@ -1,0 +1,12 @@
+import {PathInterface} from "../../../../model/path/path.interface";
+import {CheckTelegramChannelInputModel} from "../../../../file/model/input/check-telegram-channel.input.model";
+import {
+    GetPostsFromTelegramChannelInputModel
+} from "../../../../file/model/input/get-posts-from-telegram-channel.input.model";
+
+
+//НАДО ДУМАЮ СДЕЛАТЬ ЭТО АБСТРАКТНЫМ КОНФИГОМ, Т.К. БУДУТ ФАЙЛЫ ЗАПУСКАТЬСЯ И МЫ ТУДА БУДЕМ ДАННЫЕ ПЕРЕДАВАТЬ
+export interface RunGetPostsFromTelegramChannelFileConfigModel {
+    pathToFile : PathInterface
+    inputData? : GetPostsFromTelegramChannelInputModel
+}
