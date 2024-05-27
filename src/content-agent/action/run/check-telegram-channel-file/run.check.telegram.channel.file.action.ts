@@ -1,11 +1,8 @@
 import {Worker} from "worker_threads";
-import {TelegramChannelLinkInterface} from "../../../model/link/telegram.channel.link.interface";
 import {RunCheckTelegramChannelInterfaceAction} from "./run.check.telegram.channel.interface.action";
-import {PathInterface} from "../../../model/path/path.interface";
-import {CheckTelegramChannelInputModel} from "../../../file/model/input/check-telegram-channel.input.model";
 import {CheckTelegramChannelOutputModel} from "../../../file/model/output/check-telegram-channel.output.model";
 import {RunCheckTelegramChannelFileConfigAction} from "./run.check.telegram.channel.file.config.action";
-
+import {CheckTelegramChannelInputModel} from "../../../file/model/input/find-telegram-channel.input.model";
 
 
 export class RunCheckTelegramChannelFileAction implements RunCheckTelegramChannelInterfaceAction{

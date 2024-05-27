@@ -1,6 +1,5 @@
 import {Body, Controller, Get, UsePipes, ValidationPipe} from '@nestjs/common';
 import {CustomerManager} from "./customer-manager";
-import {LinkInterface} from "../model/link/link.interface";
 import {CheckChannelRequestDto} from "./model/check.channel.request.model";
 
 @Controller('')
