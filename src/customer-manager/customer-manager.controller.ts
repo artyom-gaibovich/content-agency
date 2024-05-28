@@ -1,6 +1,7 @@
 import {Body, Controller, Post, UsePipes, ValidationPipe} from '@nestjs/common';
 import {CustomerManager} from "./customer-manager";
-import {CheckChannelsRequestDto} from "./model/request/check-channels.request.dto";
+import {CheckChannelsRequestDto} from "./model/request/check-channels/check-channels.request.dto";
+import {RewritePostsRequestModel} from "./model/request/get-posts/rewrite-posts.request.model";
 
 @Controller('')
 export class CustomerManagerController {
@@ -11,5 +12,9 @@ export class CustomerManagerController {
     async checkChannel(@Body() request : CheckChannelsRequestDto) {
         console.log(request)
         return await this.customerManager.checkChannel(request)
+    }
+    @Post('channels/posts')
+    async getPosts(@Body() request : RewritePostsRequestModel) {
+        return await this.customerManager.rewritePosts(request)
     }
 }

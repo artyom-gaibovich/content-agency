@@ -12,18 +12,29 @@ import * as path from 'path';
 import {
     RunGetPostsFromTelegramChannelFileAction
 } from "../content-agent/action/run/get-posts-from-telegram-channel-file/run.get-posts-from-telegram-channel-file.action";
+import {GetChannelsWithPostsAction} from "../content-agent/action/get/get-channels-with-posts.action";
+import {ContentAgent} from "../content-agent/content-agent";
+import {CheckChannelsAction} from "../content-agent/action/check/check-channels/check-channels.action";
 import {
     RunGetPostsFromTelegramChannelFileConfigAction
 } from "../content-agent/action/run/get-posts-from-telegram-channel-file/run.get-posts-from-telegram-channel-file.config.action";
-import {GetPostsManyChannelsAction} from "../content-agent/action/get/get-posts-many-channels.action";
-import {ContentAgent} from "../content-agent/content-agent";
-import {CheckChannelsAction} from "../content-agent/action/check/check-channels/check-channels.action";
 
 @Module({
   providers: [{
     useFactory : () => {
 
         return new ContentAgent(new TelegramChannelRepository(
+            new GetChannelsWithPostsAction(
+                new RunGetPostsFromTelegramChannelFileAction(
+                    new RunGetPostsFromTelegramChannelFileConfigAction(
+                        {
+                            pathToFile: {
+                                pathToFile: path.join(__dirname, '..', 'file', 'get-posts-from-telegram-channel.file.js')
+                            },
+                        }
+                    )
+                )
+            ),
             new CheckChannelsAction(
                 new RunCheckTelegramChannelFileAction(
                     new RunCheckTelegramChannelFileConfigAction(
@@ -33,47 +44,16 @@ import {CheckChannelsAction} from "../content-agent/action/check/check-channels/
                             },
                         }
                     ))),
-            new RunCheckTelegramChannelFileAction(
-                new RunCheckTelegramChannelFileConfigAction(
-                    {
-                        pathToFile: {
-                            pathToFile: path.join(__dirname, '..', 'file', 'check.telegram.channel.file.js')
-                        },
-
-                    }
-                )),
-            new RunGetPostsFromTelegramChannelFileAction(
-                new RunGetPostsFromTelegramChannelFileConfigAction(
-                    {
-                        pathToFile: {
-                            pathToFile: path.join(__dirname, '..', 'file', 'get-posts-from-telegram-channel.file.js')
-                        },
-
-                    }
-                )
-            ),
-            new GetPostsManyChannelsAction(
-                new RunGetPostsFromTelegramChannelFileAction(
-                    new RunGetPostsFromTelegramChannelFileConfigAction(
-                        {
-                            pathToFile: {
-                                pathToFile: path.join(__dirname, '..', 'file', 'get-posts-from-telegram-channel.file.js')
-                            },
-
-                        }
-                    )
-                ),
-            ))
-
+        )
       );
     },
-    provide : 'TELEGRAM_CHANNEL_REPOSITORY'
+    provide : 'CustomerManager'
   },
   {provide : CustomerManager,
-      useFactory: (telegramChannelRepository: TelegramChannelRepository) => {
-          return new CustomerManager(telegramChannelRepository);
+      useFactory: (contentAgent: ContentAgent) => {
+          return new CustomerManager(contentAgent);
       },
-      inject : ['TELEGRAM_CHANNEL_REPOSITORY']
+      inject : ['CustomerManager']
   }
   ],
   controllers: [CustomerManagerController]
