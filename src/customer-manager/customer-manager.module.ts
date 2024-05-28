@@ -67,13 +67,13 @@ import {CheckChannelsAction} from "../content-agent/action/check/check-channels/
 
       );
     },
-    provide : 'TELEGRAM_CHANNEL_REPOSITORY'
+    provide : 'CustomerManager'
   },
   {provide : CustomerManager,
       useFactory: (telegramChannelRepository: TelegramChannelRepository) => {
           return new CustomerManager(telegramChannelRepository);
       },
-      inject : ['TELEGRAM_CHANNEL_REPOSITORY']
+      inject : ['CustomerManager']
   }
   ],
   controllers: [CustomerManagerController]
