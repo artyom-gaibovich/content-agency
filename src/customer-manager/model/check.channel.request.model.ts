@@ -3,7 +3,7 @@ import {IsString} from "class-validator";
 
 
 
-export class CheckChannelRequestDto implements LinkInterface{
+export class CheckChannelRequestModel implements LinkInterface{
     @IsString()
     url : string;
 }
