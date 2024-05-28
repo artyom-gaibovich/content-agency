@@ -6,7 +6,5 @@ export class RunGetPostsFromTelegramChannelFileConfigAction {
     getPath() {
         return this.configModel.pathToFile
     }
-    getInputData() {
-        return this.configModel.inputData
-    }
+
 }
