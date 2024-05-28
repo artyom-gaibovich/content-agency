@@ -1,8 +1,8 @@
 import {Worker} from "worker_threads";
 import {RunCheckTelegramChannelInterfaceAction} from "./run.check.telegram.channel.interface.action";
-import {CheckTelegramChannelOutputModel} from "../../../../file/model/output/check-telegram-channel.output.model";
 import {RunCheckTelegramChannelFileConfigAction} from "./run.check.telegram.channel.file.config.action";
-import {CheckTelegramChannelInputModel} from "../../../../file/model/input/check-telegram-channel.input.model";
+import {CheckedChannelInterface} from "../../../../customer-manager/model/response/check-channels.response.model";
+import {LinkInterface} from "../../../../model/link/link.interface";
 
 
 export class RunCheckTelegramChannelFileAction implements RunCheckTelegramChannelInterfaceAction{
@@ -15,21 +15,25 @@ export class RunCheckTelegramChannelFileAction implements RunCheckTelegramChanne
     // и ещё вопрос, стоит ли это проверка на instance Boolean не лишняя, и можно ли декомпозировать просто на Run без привязки к тг-файлам
     // Стоило ли декомпозировать на Input/Output модель???
     // Если да --> то есть ли смысл в модели канала?
-    async run(link : CheckTelegramChannelInputModel) : Promise<CheckTelegramChannelOutputModel> {
+    async run(link : LinkInterface) : Promise<CheckedChannelInterface> {
         return new Promise((resolve, reject) => {
             //подумать про new Worker(), мне кажется, что здесь не должно быть слово New Worker
             const worker = new Worker(this.config.getPath().pathToFile, { workerData : link});
             worker.on('message', message => {
                 if(typeof message === 'boolean') {
                     resolve({
-                        isChannelExist : message
+                        status : 'OK',
+                        channelLink : link.link,
+                        isChannelExists : message
                     })
                 }
                 else {
                     console.log(`Сообщение не соответствует типу Boolean`)
                     console.log(message)
                     resolve({
-                        isChannelExist : false
+                        status : 'ERROR',
+                        channelLink : link.link,
+                        isChannelExists : false
                     })
                 }
 
@@ -38,7 +42,10 @@ export class RunCheckTelegramChannelFileAction implements RunCheckTelegramChanne
                 console.log(`Воркер завешился с ошибкой`)
                 console.log(error)
                 reject({
-                    isChannelExist : false
+                    statusMessage : JSON.stringify(error),
+                    status : 'ERROR',
+                    channelLink : link.link,
+                    isChannelExists : false
                 })
             });
         });

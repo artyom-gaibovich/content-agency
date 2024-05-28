@@ -1,4 +1,4 @@
 
 export interface LinkInterface {
-    url : string
+    link : string
 }

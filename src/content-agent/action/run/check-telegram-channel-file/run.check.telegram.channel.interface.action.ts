@@ -1,8 +1,7 @@
-import {RunFileInterfaceAction} from "../run.file.interface.action";
-import {CheckTelegramChannelOutputModel} from "../../../../file/model/output/check-telegram-channel.output.model";
-import {CheckTelegramChannelInputModel} from "../../../../file/model/input/check-telegram-channel.input.model";
+import {CheckedChannelInterface} from "../../../../customer-manager/model/response/check-channels.response.model";
+import {LinkInterface} from "../../../../model/link/link.interface";
 
 
-export interface RunCheckTelegramChannelInterfaceAction extends RunFileInterfaceAction {
-    run(inputData : CheckTelegramChannelInputModel) : Promise<CheckTelegramChannelOutputModel>
+export interface RunCheckTelegramChannelInterfaceAction {
+    run(link : LinkInterface) : Promise<CheckedChannelInterface>
 }
