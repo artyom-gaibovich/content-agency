@@ -1,4 +1,3 @@
-import {LinksInterface} from "../../../model/link/links.interface";
 import {
     GetPostsFromTelegramChannelOutputModel
 } from "../../../file/model/output/get-posts-from-telegram-channel.output.model";

@@ -6,12 +6,15 @@ import {
     GetPostsFromTelegramChannelOutputModel
 } from "../../../file/model/output/get-posts-from-telegram-channel.output.model";
 import {CheckTelegramChannelInputModel} from "../../../file/model/input/check-telegram-channel.input.model";
+import {CheckChannelsRequestModel} from "../../../customer-manager/model/request/check-channels.request.model";
+import {CheckChannelsResponseModel} from "../../../customer-manager/model/response/check-channels.response.model";
 
 
 export interface TelegramChannelRepositoryInterface{
     //Я ДУМЮ НАДО LINKINTERFACE ДЕЛАТЬ
+    checkChannels(request : CheckChannelsRequestModel) : Promise<CheckChannelsResponseModel>
+
     getPostsByChannelLink(channelLink : GetPostsFromTelegramChannelInputModel) : Promise<GetPostsFromTelegramChannelOutputModel>
-    checkOneByChannelLink(channelLink : CheckTelegramChannelInputModel) : Promise<CheckTelegramChannelOutputModel>
     getPostsManyChannels(channelLinks : GetPostsFromTelegramChannelInputModel[]) : Promise<GetPostsFromTelegramChannelOutputModel[]>
 
 }

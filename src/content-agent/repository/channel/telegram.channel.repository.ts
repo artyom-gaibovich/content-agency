@@ -15,6 +15,9 @@ import {
     RunGetPostsFromTelegramChannelFileInterfaceAction
 } from "../../action/run/get-posts-from-telegram-channel-file/run.get-posts-from-telegram-channel-file.interface.action";
 import {GetPostsManyChannelsInterfaceAction} from "../../action/get/get-posts-many-channels.interface.action";
+import {CheckChannelsRequestModel} from "../../../customer-manager/model/request/check-channels.request.model";
+import {CheckChannelsResponseModel} from "../../../customer-manager/model/response/check-channels.response.model";
+import {CheckChannelsInterfaceAction} from "../../action/check/check-channels/check-channels.interface.action";
 
 @Injectable({
 
@@ -22,7 +25,7 @@ import {GetPostsManyChannelsInterfaceAction} from "../../action/get/get-posts-ma
 export class TelegramChannelRepository implements TelegramChannelRepositoryInterface {
 
     constructor(
-
+        private checkChannelsAction : CheckChannelsInterfaceAction,
         private runCheckTelegramChannelFileAction : RunCheckTelegramChannelInterfaceAction,
         private runGetPostsFromTelegramChannelFileAction : RunGetPostsFromTelegramChannelFileInterfaceAction,
         private getPostsManyChannelsInterfaceAction : GetPostsManyChannelsInterfaceAction
@@ -31,12 +34,14 @@ export class TelegramChannelRepository implements TelegramChannelRepositoryInter
     }
 
     //МНЕ КАЖЕТСЯ ЗДЕСЬ ДОЛЖЕН БЫТЬ БЫТЬ LinkInterface в передаваемом параметре
+    async checkChannels(request : CheckChannelsRequestModel) : Promise<CheckChannelsResponseModel> {
+        return await this.checkChannelsAction.checkChannels(request)
+    }
+
     async getPostsByChannelLink(channelLink : GetPostsFromTelegramChannelInputModel) : Promise<GetPostsFromTelegramChannelOutputModel> {
         return await this.runGetPostsFromTelegramChannelFileAction.run(channelLink)
     }
-    async checkOneByChannelLink(channelLink : CheckTelegramChannelInputModel) : Promise<CheckTelegramChannelOutputModel> {
-        return await this.runCheckTelegramChannelFileAction.run(channelLink)
-    }
+
     async getPostsManyChannels(channelLinks : GetPostsFromTelegramChannelInputModel[]) : Promise<GetPostsFromTelegramChannelOutputModel[]> {
         return await this.getPostsManyChannelsInterfaceAction.getPostsManyChannels(channelLinks)
     }
