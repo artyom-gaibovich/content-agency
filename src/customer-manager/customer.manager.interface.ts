@@ -3,6 +3,5 @@ import {CheckTelegramChannelOutputModel} from "../file/model/output/check-telegr
 
 export interface CustomerManagerInterface {
 
-
     checkChannel(request : LinkInterface) : Promise<CheckTelegramChannelOutputModel>
 }

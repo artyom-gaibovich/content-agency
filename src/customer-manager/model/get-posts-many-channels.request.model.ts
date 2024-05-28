@@ -1,8 +1,11 @@
-import {IsArray, IsString} from "class-validator";
+import {IsArray, IsString, ValidateNested} from "class-validator";
 import {LinksInterface} from "../../model/link/links.interface";
+import {Type} from "class-transformer";
+import {GetPostsFromChannelRequestModel} from "./get-posts-from-channel.request.model";
 
-export class GetPostsFromChannelsRequestModel implements LinksInterface{
+export class GetPostsManyChannelsRequestModel implements LinksInterface{
     @IsArray()
-    @IsString({each : true}) //проверяю каждый элемент массив, что он является строкой
-    urls : string[]
+    @ValidateNested({ each: true })
+    @Type(() => GetPostsFromChannelRequestModel)
+    urls: GetPostsFromChannelRequestModel[];
 }

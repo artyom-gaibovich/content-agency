@@ -1,12 +1,12 @@
-import {PathInterface} from "../../../../model/path/path.interface";
-import {CheckTelegramChannelInputModel} from "../../../../file/model/input/check-telegram-channel.input.model";
-import {
-    GetPostsFromTelegramChannelInputModel
-} from "../../../../file/model/input/get-posts-from-telegram-channel.input.model";
+import {RunGetPostsFromTelegramChannelFileConfigModel} from "./run.get-posts-from-telegram-channel-file.config.model";
 
-
-//НАДО ДУМАЮ СДЕЛАТЬ ЭТО АБСТРАКТНЫМ КОНФИГОМ, Т.К. БУДУТ ФАЙЛЫ ЗАПУСКАТЬСЯ И МЫ ТУДА БУДЕМ ДАННЫЕ ПЕРЕДАВАТЬ
-export interface RunGetPostsFromTelegramChannelFileConfigModel {
-    pathToFile : PathInterface
-    inputData? : GetPostsFromTelegramChannelInputModel
+export class RunGetPostsFromTelegramChannelFileConfigAction {
+    constructor(private configModel : RunGetPostsFromTelegramChannelFileConfigModel) {
+    }
+    getPath() {
+        return this.configModel.pathToFile
+    }
+    getInputData() {
+        return this.configModel.inputData
+    }
 }
