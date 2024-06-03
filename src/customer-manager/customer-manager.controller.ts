@@ -10,7 +10,6 @@ export class CustomerManagerController {
     @UsePipes(new ValidationPipe())
     @Post('channels/check')
     async checkChannel(@Body() request : CheckChannelsRequestDto) {
-        console.log(request)
         return await this.customerManager.checkChannel(request)
     }
     @Post('channels/posts')
