@@ -1,6 +1,6 @@
-import {LinkInterface} from "../../../../model/link/link.interface";
-import {ChannelWithPostsModel} from "../../../../customer-manager/model/response/rewrite-posts.response.model";
+/*
+import {LinkModel} from "../../../../model/link/link.model";
 
 export interface RunGetPostsFromTelegramChannelFileInterfaceAction{
-    run(link : LinkInterface) : Promise<ChannelWithPostsModel>
-}
+    run(link : LinkModel) : Promise<ChannelWithPostsModel>
+}*/

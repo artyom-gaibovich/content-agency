@@ -2,7 +2,7 @@ import {Worker} from "worker_threads";
 import {RunCheckTelegramChannelInterfaceAction} from "./run.check.telegram.channel.interface.action";
 import {RunCheckTelegramChannelFileConfigAction} from "./run.check.telegram.channel.file.config.action";
 import {CheckedChannelInterface} from "../../../../customer-manager/model/response/check-channels.response.model";
-import {LinkInterface} from "../../../../model/link/link.interface";
+import {LinkModel} from "../../../../model/link/link.model";
 
 
 export class RunCheckTelegramChannelFileAction implements RunCheckTelegramChannelInterfaceAction{
@@ -15,7 +15,7 @@ export class RunCheckTelegramChannelFileAction implements RunCheckTelegramChanne
     // и ещё вопрос, стоит ли это проверка на instance Boolean не лишняя, и можно ли декомпозировать просто на Run без привязки к тг-файлам
     // Стоило ли декомпозировать на Input/Output модель???
     // Если да --> то есть ли смысл в модели канала?
-    async run(link : LinkInterface) : Promise<CheckedChannelInterface> {
+    async run(link : LinkModel) : Promise<CheckedChannelInterface> {
         return new Promise((resolve, reject) => {
             //подумать про new Worker(), мне кажется, что здесь не должно быть слово New Worker
             const worker = new Worker(this.config.getPath().pathToFile, { workerData : link});

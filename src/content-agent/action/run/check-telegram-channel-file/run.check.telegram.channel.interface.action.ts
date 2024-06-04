@@ -1,7 +1,8 @@
 import {CheckedChannelInterface} from "../../../../customer-manager/model/response/check-channels.response.model";
-import {LinkInterface} from "../../../../model/link/link.interface";
+import {LinkModel} from "../../../../model/link/link.model";
 
 
 export interface RunCheckTelegramChannelInterfaceAction {
-    run(link : LinkInterface) : Promise<CheckedChannelInterface>
+    run(link : LinkModel) : Promise<CheckedChannelInterface>
 }
+

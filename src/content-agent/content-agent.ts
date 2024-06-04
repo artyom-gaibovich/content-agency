@@ -1,21 +1,21 @@
-import {TelegramChannelRepository} from "./repository/channel/telegram.channel.repository";
-import {Injectable} from "@nestjs/common";
-import {CheckChannelsRequestModel} from "../customer-manager/model/request/check-channels/check-channels.request.model";
-import {CheckChannelsResponseModel} from "../customer-manager/model/response/check-channels.response.model";
+import {Inject, Injectable} from "@nestjs/common";
 import {ContentAgentInterface} from "./content-agent.interface";
-import {RewritePostsRequestModel} from "../customer-manager/model/request/get-posts/rewrite-posts.request.model";
-import {RewritePostsResponseModel} from "../customer-manager/model/response/rewrite-posts.response.model";
+import {ChannelCheckerInterface} from "./checker/channel.checker.interface";
+import {ChannelToCheckModel} from "../customer-manager/model/channel-to-check.model";
+import {CheckedChannelsModel} from "./checker/model/checked-channels.model";
 
 
 @Injectable()
 export class ContentAgent implements ContentAgentInterface{
-    constructor(private telegramChannelRepository : TelegramChannelRepository) {
+    constructor(@Inject('CHANNEL_CHECKER') private checker : ChannelCheckerInterface) {
     }
-    async checkChannels(request : CheckChannelsRequestModel) : Promise<CheckChannelsResponseModel> {
-        return await this.telegramChannelRepository.checkChannels(request)
+    async checkChannels(channelsToCheck: ChannelToCheckModel[]) : Promise<CheckedChannelsModel> {
+        return await this.checker.check(channelsToCheck)
     }
+/*
     async getChannelsWithPosts(request : RewritePostsRequestModel) : Promise<RewritePostsResponseModel> {
         return await this.telegramChannelRepository.getChannelsWithPosts(request)
     }
+*/
 
 }
