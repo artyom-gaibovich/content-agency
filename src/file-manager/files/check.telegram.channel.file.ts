@@ -1,7 +1,7 @@
 import {parentPort, workerData} from 'worker_threads'
 import {StringSession} from "telegram/sessions";
 import {Api, TelegramClient} from "telegram";
-import {Config} from "../config/config";
+import {Config} from "../../config/config";
 
 (async () => {
     try {

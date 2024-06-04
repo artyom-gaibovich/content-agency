@@ -5,7 +5,7 @@ import {CheckChannelActionInterface} from "./check-channel.action.interface";
 import {CheckedChannelModel} from "../../../content-agent/checker/model/checked-channels.model";
 import {ChannelToCheckModel} from "../../../customer-manager/model/channel-to-check.model";
 
-export class RunCheckChannelAction implements CheckChannelActionInterface{
+export class CheckChannelAction implements CheckChannelActionInterface{
     async run(channelToCheck : ChannelToCheckModel, pathToFile : PathModel) : Promise<CheckedChannelModel> {
         return new Promise<CheckedChannelModel>((resolve, reject) => {
             const worker = new Worker(pathToFile.pathToFile, { workerData : channelToCheck.channelToCheck});

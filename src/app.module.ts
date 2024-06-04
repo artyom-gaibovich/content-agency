@@ -5,7 +5,7 @@ import {CustomerManagerController} from "./customer-manager/customer-manager.con
 
 @Module({
   imports: [CustomerManagerModule],
-  controllers: [AppController],
+  controllers: [],
 })
 export class AppModule {
 

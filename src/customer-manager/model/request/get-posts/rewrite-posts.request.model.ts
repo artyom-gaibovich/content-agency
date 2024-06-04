@@ -1,7 +1,7 @@
-import {LinkInterface} from "../../../../model/link/link.interface";
+import {LinkModel} from "../../../../model/link/link.model";
 
 export interface RewritePostsRequestModel {
-    links : LinkInterface[]
+    links : LinkModel[]
     limit? : number
 }
 

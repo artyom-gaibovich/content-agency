@@ -1,7 +1,7 @@
 import {IsString} from "class-validator";
-import {LinkInterface} from "./link.interface";
+import {LinkModel} from "./link.model";
 
-export class LinkDto implements LinkInterface{
+export class LinkDto implements LinkModel{
     @IsString()
     link : string
 }
