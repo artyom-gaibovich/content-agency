@@ -1,7 +1,6 @@
 import {Module} from "@nestjs/common";
 import {PathModel} from "../../model/path/path.model";
-import path from "path";
-import {FileManagerModule} from "../../file-manager/file-manager.module";
+import * as path from "path";
 import {ChannelChecker} from "./channel.checker";
 import {FileManager} from "../../file-manager/file-manager";
 import {CheckChannelAction} from "../../file-manager/actions/check-channel/check-channel.action";

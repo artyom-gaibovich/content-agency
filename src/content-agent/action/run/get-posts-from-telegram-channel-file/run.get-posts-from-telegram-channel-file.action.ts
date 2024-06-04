@@ -1,11 +1,4 @@
-import {
-    RunGetPostsFromTelegramChannelFileInterfaceAction
-} from "./run.get-posts-from-telegram-channel-file.interface.action";
-import {RunGetPostsFromTelegramChannelFileConfigAction} from "./run.get-posts-from-telegram-channel-file.config.action";
-import {Worker} from "worker_threads";
-import {LinkModel} from "../../../../model/link/link.model";
-
-
+/*
 export class RunGetPostsFromTelegramChannelFileAction implements RunGetPostsFromTelegramChannelFileInterfaceAction{
 
     constructor(private config : RunGetPostsFromTelegramChannelFileConfigAction) {
@@ -53,4 +46,4 @@ export class RunGetPostsFromTelegramChannelFileAction implements RunGetPostsFrom
             });
         });
     }
-}
+}*/

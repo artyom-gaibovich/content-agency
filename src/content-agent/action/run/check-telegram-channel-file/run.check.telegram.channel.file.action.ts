@@ -1,10 +1,4 @@
-import {Worker} from "worker_threads";
-import {RunCheckTelegramChannelInterfaceAction} from "./run.check.telegram.channel.interface.action";
-import {RunCheckTelegramChannelFileConfigAction} from "./run.check.telegram.channel.file.config.action";
-import {CheckedChannelInterface} from "../../../../customer-manager/model/response/check-channels.response.model";
-import {LinkModel} from "../../../../model/link/link.model";
-
-
+/*
 export class RunCheckTelegramChannelFileAction implements RunCheckTelegramChannelInterfaceAction{
 
     constructor(private config : RunCheckTelegramChannelFileConfigAction) {
@@ -50,4 +44,4 @@ export class RunCheckTelegramChannelFileAction implements RunCheckTelegramChanne
             });
         });
     }
-}
+}*/
