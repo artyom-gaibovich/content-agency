@@ -4,12 +4,19 @@ import {ContentAgentInterface} from "../content-agent/content-agent.interface";
 import {CustomerManager} from "./customer-manager";
 import {CustomerManagerController} from "./customer-manager.controller";
 import {CheckChannelsRequestConverter} from "../request-converter/check-channels-request-converter";
+import {RewriteContentRequestConverter} from "../request-converter/rewrite-content-request-converter";
 
 @Module({
     imports : [ContentAgentModule],
     providers : [
         {
-            provide : 'REQUEST_CONVERTER',
+            provide : 'REWRITE_CONTENT_REQUEST_CONVERTER',
+            useFactory: () => {
+                return new RewriteContentRequestConverter()
+            }
+        },
+        {
+            provide : 'CHECK_CHANNELS_REQUEST_CONVERTER',
             useFactory: () => {
                 return new CheckChannelsRequestConverter()
             }

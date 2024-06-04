@@ -6,5 +6,5 @@ import {ChannelToCheckModel} from "../customer-manager/model/channel-to-check.mo
 
 export interface ContentAgentInterface {
     checkChannels(channelsToCheck : ChannelToCheckModel[]) : Promise<CheckedChannelsModel>
-    //getChannelsWithPosts(channelsToRewrite : ChannelsToRewriteModel) : Promise<ChannelsWithPostsModel>
+    getChannelsWithPosts(channelsToRewrite : ChannelsToRewriteModel) : Promise<ChannelsWithPostsModel>
 }
