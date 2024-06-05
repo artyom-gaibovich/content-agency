@@ -5,14 +5,18 @@ import {ChannelToCheckModel} from "../customer-manager/model/channel-to-check.mo
 import {CheckedChannelsModel} from "./checker/model/checked-channels.model";
 import {ChannelsToRewriteModel} from "../customer-manager/model/channels-to-rewrite.model";
 import {ChannelsWithPostsModel} from "./model/channel-with-posts.model";
+import {ChannelRepositoryInterface} from "./repository/channel/channel.repository.interface";
 
 
 @Injectable()
 export class ContentAgent implements ContentAgentInterface{
-    constructor(@Inject('CHANNEL_CHECKER') private checker : ChannelCheckerInterface) {
+    constructor(
+        @Inject('CHANNEL_REPOSITORY') private repository : ChannelRepositoryInterface,
+        @Inject('CHANNEL_CHECKER') private checker : ChannelCheckerInterface
+    ) {
     }
     async checkChannels(channelsToCheck: ChannelToCheckModel[]) : Promise<CheckedChannelsModel> {
-        return await this.checker.check(channelsToCheck)
+        return await this.checker.checkChannels(channelsToCheck)
     }
     async getChannelsWithPosts(channelsToRewrite : ChannelsToRewriteModel) : Promise<ChannelsWithPostsModel> {
     }

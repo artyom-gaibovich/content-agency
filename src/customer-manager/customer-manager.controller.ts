@@ -20,6 +20,6 @@ export class CustomerManagerController {
     }
     @Post('channels/posts')
     async getPosts(@Body() request : RewritePostsRequestModel) {
-        return await this.customerManager.rewritePosts(request)
+        return await this.customerManager.rewriteContent(this.rewriteContentRequestConverter.convert(request))
     }
 }

@@ -1,5 +1,7 @@
 import {Module} from "@nestjs/common";
 import {FileManager} from "./file-manager";
+import * as path from "path";
+import {GetChannelAction} from "./actions/run-get-channel/get-channel.action";
 import {CheckChannelAction} from "./actions/check-channel/check-channel.action";
 
 @Module({
@@ -8,7 +10,12 @@ import {CheckChannelAction} from "./actions/check-channel/check-channel.action";
             provide : 'FILE_MANAGER',
             useFactory: () => {
                 return new FileManager(
-                    new CheckChannelAction()
+                    {
+                        checkChannel : {pathToFile : path.join(__dirname, 'check.telegram.channel.file.js')},
+                        getChannelsPath : {pathToFile : path.join(__dirname, 'get-posts-from-telegram-channel.file.js')}
+                    },
+                    new CheckChannelAction(),
+                    new GetChannelAction(),
                 )
             }
         }

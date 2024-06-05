@@ -8,25 +8,11 @@ import {PathModel} from "../../model/path/path.model";
 
 @Injectable()
 export class ChannelChecker implements ChannelCheckerInterface {
-    constructor(private path : PathModel, private fileManager: FileManagerInterface
+    constructor(private fileManager: FileManagerInterface
     ) {
     }
 
-    private async* channelIterator(channelsToCheck: ChannelToCheckModel[]) {
-
-        for (const link of channelsToCheck) {
-            const checkedChannel = await this.fileManager.checkChannel(link, this.path)
-            yield checkedChannel
-        }
-    }
-
-    async check(channelsToCheck: ChannelToCheckModel[]): Promise<CheckedChannelsModel> {
-        const checkedChannels: CheckedChannelModel[] = []
-        for await (const channelToCheck of this.channelIterator(channelsToCheck)) {
-            checkedChannels.push(channelToCheck)
-        }
-        return {
-            checkedChannels: checkedChannels
-        }
+    async checkChannels(channelsToCheck: ChannelToCheckModel[]): Promise<CheckedChannelsModel> {
+        return await this.fileManager.checkChannels(channelsToCheck)
     }
 }

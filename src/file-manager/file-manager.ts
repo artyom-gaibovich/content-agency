@@ -1,23 +1,61 @@
 import {FileManagerInterface} from "./file-manager.interface";
 import {ChannelToCheckModel} from "../customer-manager/model/channel-to-check.model";
-import {CheckedChannelModel} from "../content-agent/checker/model/checked-channels.model";
+import {CheckedChannelModel, CheckedChannelsModel} from "../content-agent/checker/model/checked-channels.model";
 import {CheckChannelActionInterface} from "./actions/check-channel/check-channel.action.interface";
 import {Inject, Injectable} from "@nestjs/common";
 import {PathModel} from "../model/path/path.model";
-import {LinkModel} from "../model/link/link.model";
-import {ChannelsWithPostsModel} from "../content-agent/model/channel-with-posts.model";
+import {ChannelsWithPostsModel, ChannelWithPostsModel} from "../content-agent/model/channel-with-posts.model";
+import {ChannelsToRewriteModel, ChannelToRewriteModel} from "../customer-manager/model/channels-to-rewrite.model";
+import {GetChannelActionInterface} from "./actions/run-get-channel/get-channel.action.interface";
+import {FileManagerConfigInterface} from "./file-manager.config.interface";
 
 
 //pathToFile: path.join(__dirname, '..', 'file', 'get-posts-from-telegram-channel.files.js')
 
 @Injectable()
 export class FileManager implements FileManagerInterface{
-    constructor(@Inject('CHECK_CHANNEL_ACTION') private checkChannelAction : CheckChannelActionInterface) {
+    constructor(
+        @Inject('FILE_MANAGER_CONFIG') private config : FileManagerConfigInterface,
+        @Inject('CHECK_CHANNEL_ACTION') private checkChannelAction : CheckChannelActionInterface,
+        @Inject('GET_CHANNEL_ACTION') private getChannelAction : GetChannelActionInterface,
+    ) {
     }
-    async checkChannel(channelToCheck: ChannelToCheckModel, pathToFile : PathModel): Promise<CheckedChannelModel> {
-        return await this.checkChannelAction.run(channelToCheck, pathToFile)
+
+
+    private async* checkChannelsIterator(channelsToCheck: ChannelToCheckModel[]) {
+
+        for (const channelToCheck of channelsToCheck) {
+            const checkedChannel = await this.checkChannelAction.run(channelToCheck, this.config.checkChannel)
+            yield checkedChannel
+        }
     }
-    async getChannels(channelLinks: LinkModel[]): Promise<ChannelsWithPostsModel> {
-        return await this.c
+
+    async checkChannels(channelsToCheck: ChannelToCheckModel[]): Promise<CheckedChannelsModel> {
+        const checkedChannels: CheckedChannelModel[] = []
+        for await (const channelToCheck of this.checkChannelsIterator(channelsToCheck)) {
+            checkedChannels.push(channelToCheck)
+        }
+        return {
+            checkedChannels: checkedChannels
+        }
+    }
+
+
+
+    private async * getChannelsIterator(channelsToRewrite : ChannelToRewriteModel[]) {
+
+        for (const channelToRewrite  of channelsToRewrite) {
+            const postsFromChannel = await this.getChannelAction.run(channelToRewrite, this.config.checkChannel)
+            yield postsFromChannel
+        }
+    }
+    async getChannels(channelsToRewrite : ChannelsToRewriteModel) : Promise<ChannelsWithPostsModel> {
+        const channelsWithPosts : ChannelWithPostsModel[] = []
+        for await (const channelLink of  this.getChannelsIterator(channelsToRewrite.channelsToRewrite)) {
+            channelsWithPosts.push(channelLink)
+        }
+        return {
+            channelsWithPosts : channelsWithPosts
+        }
     }
 }

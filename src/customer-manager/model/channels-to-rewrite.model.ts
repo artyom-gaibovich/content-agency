@@ -1,10 +1,10 @@
 import {LinkModel} from "../../model/link/link.model";
 
 
-export interface ChannelToRewrite {
+export interface ChannelToRewriteModel {
     link : LinkModel
     limit? : number
 }
 export interface ChannelsToRewriteModel {
-    channelsToRewrite : ChannelToRewrite[]
+    channelsToRewrite : ChannelToRewriteModel[]
 }

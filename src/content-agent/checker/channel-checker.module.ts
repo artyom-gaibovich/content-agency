@@ -4,19 +4,18 @@ import * as path from "path";
 import {ChannelChecker} from "./channel.checker";
 import {FileManager} from "../../file-manager/file-manager";
 import {CheckChannelAction} from "../../file-manager/actions/check-channel/check-channel.action";
+import {GetChannelAction} from "../../file-manager/actions/run-get-channel/get-channel.action";
+import {FileManagerInterface} from "../../file-manager/file-manager.interface";
+import {FileManagerModule} from "../../file-manager/file-manager.module";
 
 @Module({
-    imports : [],
+    imports : [FileManagerModule],
     providers : [{
         provide : 'CHANNEL_CHECKER',
-        useFactory: () => {
-            return new ChannelChecker(
-                {
-                    pathToFile : path.join(__dirname, '..', '..', 'file-manager', 'files', 'check.telegram.channel.file.js')
-                },
-                new FileManager(new CheckChannelAction())
-            )
-        }
+        useFactory : (fileManager : FileManagerInterface) => {
+            return new ChannelChecker(fileManager)
+        },
+        inject : ['FILE_MANAGER']
     }],
     exports : ['CHANNEL_CHECKER']
 })

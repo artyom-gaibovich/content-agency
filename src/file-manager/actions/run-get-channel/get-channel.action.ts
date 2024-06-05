@@ -1,11 +1,12 @@
 import {PathModel} from "../../../model/path/path.model";
 import {ChannelWithPostsModel} from "../../../content-agent/model/channel-with-posts.model";
-import {ChannelToRewrite} from "../../../customer-manager/model/channels-to-rewrite.model";
 import {Worker} from "worker_threads";
+import {ChannelToRewriteModel} from "../../../customer-manager/model/channels-to-rewrite.model";
+import {GetChannelActionInterface} from "./get-channel.action.interface";
 
-export class RunGetChannelAction {
+export class GetChannelAction implements GetChannelActionInterface{
 
-    async run(channel: ChannelToRewrite, pathToFile: PathModel): Promise<ChannelWithPostsModel> {
+    async run(channel: ChannelToRewriteModel, pathToFile: PathModel): Promise<ChannelWithPostsModel> {
         return new Promise((resolve, reject) => {
             //подумать про new Worker(), мне кажется, что здесь не должно быть слово New Worker
             const worker = new Worker(pathToFile.pathToFile, {
