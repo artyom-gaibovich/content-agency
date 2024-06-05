@@ -9,7 +9,7 @@ export class RunGetPostsFromTelegramChannelFileAction implements RunGetPostsFrom
     // и ещё вопрос, стоит ли это проверка на instance Boolean не лишняя, и можно ли декомпозировать просто на Run без привязки к тг-файлам
     // Стоило ли декомпозировать на Input/Output модель???
     // Если да --> то есть ли смысл в модели канала?
-    async run(link : LinkModel, limit? : number) : Promise<ChannelWithPostsModel> {
+    async run(link : LinkInterface, limit? : number) : Promise<ChannelWithPostsModel> {
         return new Promise((resolve, reject) => {
             //подумать про new Worker(), мне кажется, что здесь не должно быть слово New Worker
             const worker = new Worker(this.config.getPath().pathToFile, { workerData : {

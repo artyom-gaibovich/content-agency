@@ -9,7 +9,7 @@ export class RunCheckTelegramChannelFileAction implements RunCheckTelegramChanne
     // и ещё вопрос, стоит ли это проверка на instance Boolean не лишняя, и можно ли декомпозировать просто на Run без привязки к тг-файлам
     // Стоило ли декомпозировать на Input/Output модель???
     // Если да --> то есть ли смысл в модели канала?
-    async run(link : LinkModel) : Promise<CheckedChannelInterface> {
+    async run(link : LinkInterface) : Promise<CheckedChannelInterface> {
         return new Promise((resolve, reject) => {
             //подумать про new Worker(), мне кажется, что здесь не должно быть слово New Worker
             const worker = new Worker(this.config.getPath().pathToFile, { workerData : link});

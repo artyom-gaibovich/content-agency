@@ -1,5 +1,5 @@
 import {Module} from "@nestjs/common";
-import {PathModel} from "../../model/path/path.model";
+import {PathInterface} from "../../model/path/path.interface";
 import * as path from "path";
 import {ChannelChecker} from "./channel.checker";
 import {FileManager} from "../../file-manager/file-manager";

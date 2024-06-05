@@ -1,9 +1,9 @@
-import {LinkModel} from "../../../../model/link/link.model";
+import {LinkInterface} from "../../../../model/link/link.interface";
 
 
 /*
 export interface RunCheckTelegramChannelInterfaceAction {
-    run(link : LinkModel) : Promise<CheckedChannelInterface>
+    run(link : LinkInterface) : Promise<CheckedChannelInterface>
 }
 */
 

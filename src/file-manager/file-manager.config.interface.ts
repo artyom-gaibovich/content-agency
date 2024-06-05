@@ -1,6 +1,6 @@
-import {PathModel} from "../model/path/path.model";
+import {PathInterface} from "../model/path/path.interface";
 
 export interface FileManagerConfigInterface {
-    getChannelsPath : PathModel
-    checkChannel : PathModel
+    getChannelsPath : PathInterface
+    checkChannel : PathInterface
 }

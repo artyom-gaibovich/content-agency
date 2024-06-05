@@ -3,7 +3,7 @@ import {ChannelToCheckModel} from "../customer-manager/model/channel-to-check.mo
 import {CheckedChannelModel, CheckedChannelsModel} from "../content-agent/checker/model/checked-channels.model";
 import {CheckChannelActionInterface} from "./actions/check-channel/check-channel.action.interface";
 import {Inject, Injectable} from "@nestjs/common";
-import {PathModel} from "../model/path/path.model";
+import {PathInterface} from "../model/path/path.interface";
 import {ChannelsWithPostsModel, ChannelWithPostsModel} from "../content-agent/model/channel-with-posts.model";
 import {ChannelsToRewriteModel, ChannelToRewriteModel} from "../customer-manager/model/channels-to-rewrite.model";
 import {GetChannelActionInterface} from "./actions/run-get-channel/get-channel.action.interface";

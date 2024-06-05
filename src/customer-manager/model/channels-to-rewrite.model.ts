@@ -1,8 +1,8 @@
-import {LinkModel} from "../../model/link/link.model";
+import {LinkInterface} from "../../model/link/link.interface";
 
 
 export interface ChannelToRewriteModel {
-    link : LinkModel
+    link : LinkInterface
     limit? : number
 }
 export interface ChannelsToRewriteModel {

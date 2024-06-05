@@ -1,5 +1,5 @@
-import {LinkModel} from "../../model/link/link.model";
+import {LinkInterface} from "../../model/link/link.interface";
 
 export class ChannelToCheckModel {
-    channelToCheck : LinkModel
+    channelToCheck : LinkInterface
 }
