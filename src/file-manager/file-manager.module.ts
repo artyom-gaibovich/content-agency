@@ -11,8 +11,8 @@ import {CheckChannelAction} from "./actions/check-channel/check-channel.action";
             useFactory: () => {
                 return new FileManager(
                     {
-                        checkChannel : {pathToFile : path.join(__dirname, 'check.telegram.channel.file.js')},
-                        getChannelsPath : {pathToFile : path.join(__dirname, 'get-posts-from-telegram-channel.file.js')}
+                        checkChannel : {pathToFile : path.join(__dirname, 'files', 'check.telegram.channel.file.js')},
+                        getChannelsPath : {pathToFile : path.join(__dirname, 'files', 'get-posts-from-telegram-channel.file.js')}
                     },
                     new CheckChannelAction(),
                     new GetChannelAction(),

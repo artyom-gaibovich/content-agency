@@ -19,7 +19,7 @@ export class GetChannelAction implements GetChannelActionInterface{
             worker.on('message', message => {
                 if (Array.isArray(message)) {
                     resolve({
-                        channelLink: channel.link,
+                        channelLink: channel.link.link,
                         posts: message,
                         status: 'OK',
                     })
@@ -27,7 +27,7 @@ export class GetChannelAction implements GetChannelActionInterface{
                     console.log(`Сообщение не соответствует типу Boolean`)
                     console.log(message)
                     resolve({
-                        channelLink: channel.link,
+                        channelLink: channel.link.link,
                         status: 'ERROR',
 
                     })
@@ -38,7 +38,7 @@ export class GetChannelAction implements GetChannelActionInterface{
                 console.log(`Воркер завешился с ошибкой`)
                 console.log(error)
                 resolve({
-                    channelLink: channel.link,
+                    channelLink: channel.link.link,
                     status: 'ERROR',
                     errorMessage: JSON.stringify(error),
                 })

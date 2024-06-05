@@ -10,7 +10,7 @@ import {RewriteContentRequestConverter} from "../request-converter/rewrite-conte
 export class CustomerManagerController {
     constructor(
         @Inject('REWRITE_CONTENT_REQUEST_CONVERTER') private rewriteContentRequestConverter : RewriteContentRequestConverter,
-        @Inject('REQUEST_CONVERTER') private checkChannelsRequestConverter : CheckChannelsRequestConverterInterface,
+        @Inject('CHECK_CHANNELS_REQUEST_CONVERTER') private checkChannelsRequestConverter : CheckChannelsRequestConverterInterface,
         @Inject('CUSTOMER_MANAGER') private customerManager : CustomerManagerInterface) {
     }
     @UsePipes(new ValidationPipe())

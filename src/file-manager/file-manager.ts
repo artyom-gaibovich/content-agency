@@ -45,7 +45,7 @@ export class FileManager implements FileManagerInterface{
     private async * getChannelsIterator(channelsToRewrite : ChannelToRewriteModel[]) {
 
         for (const channelToRewrite  of channelsToRewrite) {
-            const postsFromChannel = await this.getChannelAction.run(channelToRewrite, this.config.checkChannel)
+            const postsFromChannel = await this.getChannelAction.run(channelToRewrite, this.config.getChannelsPath)
             yield postsFromChannel
         }
     }
