@@ -1,7 +1,7 @@
 import {Inject, Injectable} from "@nestjs/common";
 import {ContentAgentInterface} from "./content-agent.interface";
 import {ChannelCheckerInterface} from "./checker/channel.checker.interface";
-import {ChannelToCheckModel} from "../customer-manager/model/channel-to-check.model";
+import {ChannelToCheckInterface} from "../customer-manager/model/channel-to-check.interface";
 import {CheckedChannelsModel} from "./checker/model/checked-channels.model";
 import {ChannelsToRewriteModel} from "../customer-manager/model/channels-to-rewrite.model";
 import {ChannelsWithPostsModel} from "./model/channel-with-posts.model";
@@ -15,7 +15,7 @@ export class ContentAgent implements ContentAgentInterface{
         @Inject('CHANNEL_CHECKER') private checker : ChannelCheckerInterface
     ) {
     }
-    async checkChannels(channelsToCheck: ChannelToCheckModel[]) : Promise<CheckedChannelsModel> {
+    async checkChannels(channelsToCheck: ChannelToCheckInterface[]) : Promise<CheckedChannelsModel> {
         return await this.checker.checkChannels(channelsToCheck)
     }
     async getChannelsWithPosts(channelsToRewrite : ChannelsToRewriteModel) : Promise<ChannelsWithPostsModel> {

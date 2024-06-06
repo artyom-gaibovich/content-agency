@@ -1,5 +1,5 @@
 import {FileManagerInterface} from "./file-manager.interface";
-import {ChannelToCheckModel} from "../customer-manager/model/channel-to-check.model";
+import {ChannelToCheckInterface} from "../customer-manager/model/channel-to-check.interface";
 import {CheckedChannelModel, CheckedChannelsModel} from "../content-agent/checker/model/checked-channels.model";
 import {CheckChannelActionInterface} from "./actions/check-channel/check-channel.action.interface";
 import {Inject, Injectable} from "@nestjs/common";
@@ -22,7 +22,7 @@ export class FileManager implements FileManagerInterface{
     }
 
 
-    private async* checkChannelsIterator(channelsToCheck: ChannelToCheckModel[]) {
+    private async* checkChannelsIterator(channelsToCheck: ChannelToCheckInterface[]) {
 
         for (const channelToCheck of channelsToCheck) {
             const checkedChannel = await this.checkChannelAction.run(channelToCheck, this.config.checkChannel)
@@ -30,7 +30,7 @@ export class FileManager implements FileManagerInterface{
         }
     }
 
-    async checkChannels(channelsToCheck: ChannelToCheckModel[]): Promise<CheckedChannelsModel> {
+    async checkChannels(channelsToCheck: ChannelToCheckInterface[]): Promise<CheckedChannelsModel> {
         const checkedChannels: CheckedChannelModel[] = []
         for await (const channelToCheck of this.checkChannelsIterator(channelsToCheck)) {
             checkedChannels.push(channelToCheck)

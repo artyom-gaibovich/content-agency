@@ -1,7 +1,7 @@
 import {ChannelCheckerInterface} from "./channel.checker.interface";
 import {CheckedChannelsModel} from "./model/checked-channels.model";
 import {FileManagerInterface} from "../../file-manager/file-manager.interface";
-import {ChannelToCheckModel} from "../../customer-manager/model/channel-to-check.model";
+import {ChannelToCheckInterface} from "../../customer-manager/model/channel-to-check.interface";
 import {Injectable} from "@nestjs/common";
 
 
@@ -11,7 +11,7 @@ export class ChannelChecker implements ChannelCheckerInterface {
     ) {
     }
 
-    async checkChannels(channelsToCheck: ChannelToCheckModel[]): Promise<CheckedChannelsModel> {
+    async checkChannels(channelsToCheck: ChannelToCheckInterface[]): Promise<CheckedChannelsModel> {
         return await this.fileManager.checkChannels(channelsToCheck)
     }
 }

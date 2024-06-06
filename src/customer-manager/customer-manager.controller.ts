@@ -2,9 +2,11 @@ import {Body, Controller, Inject, Post, UsePipes, ValidationPipe} from '@nestjs/
 import {CustomerManager} from "./customer-manager";
 import {CheckChannelsRequestDto} from "./model/request/check-channels/check-channels.request.dto";
 import {RewritePostsRequestModel} from "./model/request/get-posts/rewrite-posts.request.model";
-import {CheckChannelsRequestConverterInterface} from "../request-converter/check-channels-request-converter.interface";
 import {CustomerManagerInterface} from "./customer.manager.interface";
-import {RewriteContentRequestConverter} from "../request-converter/rewrite-content-request-converter";
+import {
+    CheckChannelsRequestConverterInterface
+} from "../request-converter/check-channels/check-channels.request-converter.interface";
+import {RewriteContentRequestConverter} from "../request-converter/rewrite-content/rewrite-content.request-converter";
 
 @Controller()
 export class CustomerManagerController {

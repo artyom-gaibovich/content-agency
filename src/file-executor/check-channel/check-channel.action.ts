@@ -3,10 +3,10 @@ import {Worker} from "worker_threads";
 import {PathInterface} from "../../../model/path/path.interface";
 import {CheckChannelActionInterface} from "./check-channel.action.interface";
 import {CheckedChannelModel} from "../../../content-agent/checker/model/checked-channels.model";
-import {ChannelToCheckModel} from "../../../customer-manager/model/channel-to-check.model";
+import {ChannelToCheckInterface} from "../../../customer-manager/model/channel-to-check.interface";
 
 export class CheckChannelAction implements CheckChannelActionInterface{
-    async run(channelToCheck : ChannelToCheckModel, pathToFile : PathInterface) : Promise<CheckedChannelModel> {
+    async run(channelToCheck : ChannelToCheckInterface, pathToFile : PathInterface) : Promise<CheckedChannelModel> {
         return new Promise<CheckedChannelModel>((resolve, reject) => {
             const worker = new Worker(pathToFile.pathToFile, { workerData : channelToCheck.channelToCheck});
             worker.on('message', message => {

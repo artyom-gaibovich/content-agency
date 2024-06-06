@@ -1,6 +1,6 @@
 import {CheckedChannelsModel} from "./model/checked-channels.model";
-import {ChannelToCheckModel} from "../../customer-manager/model/channel-to-check.model";
+import {ChannelToCheckInterface} from "../../customer-manager/model/channel-to-check.interface";
 
 export interface ChannelCheckerInterface {
-    checkChannels(channelsToCheck : ChannelToCheckModel[]) : Promise<CheckedChannelsModel>
+    checkChannels(channelsToCheck : ChannelToCheckInterface[]) : Promise<CheckedChannelsModel>
 }

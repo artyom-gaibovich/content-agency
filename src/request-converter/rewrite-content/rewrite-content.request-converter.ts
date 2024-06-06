@@ -1,7 +1,7 @@
-import {RewriteContentRequestConverterInterface} from "./rewrite-content-request-converter.interface";
 import {RewritePostsRequestModel} from "../../customer-manager/model/request/get-posts/rewrite-posts.request.model";
 import {ChannelsToRewriteModel} from "../../customer-manager/model/channels-to-rewrite.model";
 import {Injectable} from "@nestjs/common";
+import {RewriteContentRequestConverterInterface} from "./rewrite-content.request-converter.interface";
 
 @Injectable()
 export class RewriteContentRequestConverter implements RewriteContentRequestConverterInterface {

@@ -3,8 +3,8 @@ import {ContentAgentModule} from "../content-agent/content-agent.module";
 import {ContentAgentInterface} from "../content-agent/content-agent.interface";
 import {CustomerManager} from "./customer-manager";
 import {CustomerManagerController} from "./customer-manager.controller";
-import {CheckChannelsRequestConverter} from "../request-converter/check-channels-request-converter";
-import {RewriteContentRequestConverter} from "../request-converter/rewrite-content-request-converter";
+import {RewriteContentRequestConverter} from "../request-converter/rewrite-content/rewrite-content.request-converter";
+import {CheckChannelsRequestConverter} from "../request-converter/check-channels/check-channels.request-converter";
 
 @Module({
     imports : [ContentAgentModule],
