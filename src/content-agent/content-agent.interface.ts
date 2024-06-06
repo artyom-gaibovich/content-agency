@@ -1,9 +1,10 @@
-import {CheckChannelsRequestModel} from "../customer-manager/model/request/check-channels/check-channels.request.model";
-import {CheckChannelsResponseModel} from "../customer-manager/model/response/check-channels.response.model";
-import {RewritePostsRequestModel} from "../customer-manager/model/request/get-posts/rewrite-posts.request.model";
-import {RewritePostsResponseModel} from "../customer-manager/model/response/rewrite-posts.response.model";
+import {ChannelsToCheckInterface} from "../customer-manager/model/channels-to-check.interface";
+import {CheckedChannelsModel} from "./checker/model/checked-channels.model";
+import {ChannelsToRewriteModel} from "../customer-manager/model/channels-to-rewrite.model";
+import {ChannelsWithPostsModel} from "./model/channel-with-posts.model";
+import {ChannelToCheckInterface} from "../customer-manager/model/channel-to-check.interface";
 
 export interface ContentAgentInterface {
-    checkChannels(request : CheckChannelsRequestModel) : Promise<CheckChannelsResponseModel>
-    getChannelsWithPosts(request : RewritePostsRequestModel) : Promise<RewritePostsResponseModel>
+    checkChannels(channelsToCheck : ChannelToCheckInterface[]) : Promise<CheckedChannelsModel>
+    getChannelsWithPosts(channelsToRewrite : ChannelsToRewriteModel) : Promise<ChannelsWithPostsModel>
 }

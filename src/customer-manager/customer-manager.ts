@@ -1,26 +1,21 @@
-import {Injectable} from '@nestjs/common';
+import {Inject, Injectable} from '@nestjs/common';
 import {CustomerManagerInterface} from "./customer.manager.interface";
-import {CheckChannelsRequestModel} from "./model/request/check-channels/check-channels.request.model";
-import {CheckChannelsResponseModel} from "./model/response/check-channels.response.model";
-import {RewritePostsRequestModel} from "./model/request/get-posts/rewrite-posts.request.model";
-import {ChannelWithPostsModel, RewritePostsResponseModel} from "./model/response/rewrite-posts.response.model";
-import {ContentAgent} from "../content-agent/content-agent";
+import {ContentAgentInterface} from "../content-agent/content-agent.interface";
+import {ChannelsToCheckInterface} from "./model/channels-to-check.interface";
+import {CheckedChannelsModel} from "../content-agent/checker/model/checked-channels.model";
+import {ChannelsToRewriteModel} from "./model/channels-to-rewrite.model";
+import {ChannelsWithPostsModel} from "../content-agent/model/channel-with-posts.model";
 
 
 @Injectable()
 export class CustomerManager implements CustomerManagerInterface{
-    constructor(private contentAgent : ContentAgent) {
+    constructor(@Inject('CONTENT_AGENT') private contentAgent : ContentAgentInterface) {
     }
 
-    private async mockRewriter(channelsWithPosts : ChannelWithPostsModel[]) {
-        await new Promise(resolve => setTimeout(resolve, 5000))
-        console.log('Идёт имитация переписывания постов')
-        return channelsWithPosts
+    async checkChannels(channelsToCheck : ChannelsToCheckInterface): Promise<CheckedChannelsModel> {
+        return await this.contentAgent.checkChannels(channelsToCheck.channelsToCheck)
     }
-    async checkChannel(request : CheckChannelsRequestModel): Promise<CheckChannelsResponseModel> {
-        return await this.contentAgent.checkChannels(request)
-    }
-    async rewritePosts(request : RewritePostsRequestModel) : Promise<RewritePostsResponseModel> {
-        return await this.contentAgent.getChannelsWithPosts(request)
+    async rewriteContent(channelsToRewrite : ChannelsToRewriteModel) : Promise<ChannelsWithPostsModel> {
+        return await this.contentAgent.getChannelsWithPosts(channelsToRewrite)
     }
 }

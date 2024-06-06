@@ -1,21 +1,26 @@
-import {TelegramChannelRepository} from "./repository/channel/telegram.channel.repository";
-import {Injectable} from "@nestjs/common";
-import {CheckChannelsRequestModel} from "../customer-manager/model/request/check-channels/check-channels.request.model";
-import {CheckChannelsResponseModel} from "../customer-manager/model/response/check-channels.response.model";
+import {Inject, Injectable} from "@nestjs/common";
 import {ContentAgentInterface} from "./content-agent.interface";
-import {RewritePostsRequestModel} from "../customer-manager/model/request/get-posts/rewrite-posts.request.model";
-import {RewritePostsResponseModel} from "../customer-manager/model/response/rewrite-posts.response.model";
+import {ChannelCheckerInterface} from "./checker/channel.checker.interface";
+import {ChannelToCheckInterface} from "../customer-manager/model/channel-to-check.interface";
+import {CheckedChannelsModel} from "./checker/model/checked-channels.model";
+import {ChannelsToRewriteModel} from "../customer-manager/model/channels-to-rewrite.model";
+import {ChannelsWithPostsModel} from "./model/channel-with-posts.model";
+import {ChannelRepositoryInterface} from "./repository/channel/channel.repository.interface";
 
 
 @Injectable()
 export class ContentAgent implements ContentAgentInterface{
-    constructor(private telegramChannelRepository : TelegramChannelRepository) {
+    constructor(
+        @Inject('CHANNEL_REPOSITORY') private repository : ChannelRepositoryInterface,
+        @Inject('CHANNEL_CHECKER') private checker : ChannelCheckerInterface
+    ) {
     }
-    async checkChannels(request : CheckChannelsRequestModel) : Promise<CheckChannelsResponseModel> {
-        return await this.telegramChannelRepository.checkChannels(request)
+    async checkChannels(channelsToCheck: ChannelToCheckInterface[]) : Promise<CheckedChannelsModel> {
+        return await this.checker.checkChannels(channelsToCheck)
     }
-    async getChannelsWithPosts(request : RewritePostsRequestModel) : Promise<RewritePostsResponseModel> {
-        return await this.telegramChannelRepository.getChannelsWithPosts(request)
+    async getChannelsWithPosts(channelsToRewrite : ChannelsToRewriteModel) : Promise<ChannelsWithPostsModel> {
+        console.log(this.repository)
+        return await this.repository.findByLinks(channelsToRewrite)
     }
 
 }
