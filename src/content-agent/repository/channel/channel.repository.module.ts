@@ -1,7 +1,7 @@
 import {Module} from "@nestjs/common";
-import {FileManagerInterface} from "../../../file-manager/file-manager.interface";
 import {ChannelRepository} from "./channel.repository";
-import {FileManagerModule} from "../../../file-manager/file-manager.module";
+import {FileManagerInterface} from "../../../file-executor/file-manager.interface";
+import {FileManagerModule} from "../../../file-executor/file-manager.module";
 
 @Module({
     imports : [FileManagerModule],

@@ -1,16 +1,14 @@
 import {FileManagerInterface} from "./file-manager.interface";
 import {ChannelToCheckInterface} from "../customer-manager/model/channel-to-check.interface";
 import {CheckedChannelModel, CheckedChannelsModel} from "../content-agent/checker/model/checked-channels.model";
-import {CheckChannelActionInterface} from "./actions/check-channel/check-channel.action.interface";
 import {Inject, Injectable} from "@nestjs/common";
-import {PathInterface} from "../model/path/path.interface";
 import {ChannelsWithPostsModel, ChannelWithPostsModel} from "../content-agent/model/channel-with-posts.model";
 import {ChannelsToRewriteModel, ChannelToRewriteModel} from "../customer-manager/model/channels-to-rewrite.model";
-import {GetChannelActionInterface} from "./actions/run-get-channel/get-channel.action.interface";
 import {FileManagerConfigInterface} from "./file-manager.config.interface";
+import {CheckChannelActionInterface} from "./check-channel/check-channel.action.interface";
+import {GetChannelActionInterface} from "./run-get-channel/get-channel.action.interface";
 
 
-//pathToFile: path.join(__dirname, '..', 'file', 'get-posts-from-telegram-channel.files.js')
 
 @Injectable()
 export class FileManager implements FileManagerInterface{

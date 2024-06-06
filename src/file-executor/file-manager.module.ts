@@ -1,8 +1,8 @@
 import {Module} from "@nestjs/common";
 import {FileManager} from "./file-manager";
 import * as path from "path";
-import {GetChannelAction} from "./actions/run-get-channel/get-channel.action";
-import {CheckChannelAction} from "./actions/check-channel/check-channel.action";
+import {CheckChannelAction} from "./check-channel/check-channel.action";
+import {GetChannelAction} from "./run-get-channel/get-channel.action";
 
 @Module({
     providers: [

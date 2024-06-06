@@ -1,8 +1,8 @@
 import {ChannelRepositoryInterface} from "./channel.repository.interface";
 import {ChannelsWithPostsModel} from "../../model/channel-with-posts.model";
 import {Inject, Injectable} from "@nestjs/common";
-import {FileManagerInterface} from "../../../file-manager/file-manager.interface";
 import {ChannelsToRewriteModel} from "../../../customer-manager/model/channels-to-rewrite.model";
+import {FileManagerInterface} from "../../../file-executor/file-manager.interface";
 
 @Injectable()
 export class ChannelRepository implements ChannelRepositoryInterface {
