@@ -1,6 +1,6 @@
 import {Module} from "@nestjs/common";
 import {CheckChannelsRequestConverter} from "./check-channels.request-converter";
-import {CHECK_CHANNELS_REQUEST_CONVERTER} from "../../constants/di.constants";
+import {CHECK_CHANNELS_REQUEST_CONVERTER} from "../../../constants/di.constants";
 
 @Module({
     providers : [

@@ -31,7 +31,7 @@ import {Config} from "../../config/config";
 
 })()
 
-async function main(client : TelegramClient, channelLink : string, LIMIT_MESSAGES: number) {
+async function main(client : TelegramClient, channelLink : string, LIMIT_MESSAGES: number = 10) {
     await client.connect()
     const messages = await client.getMessages(channelLink, {
         limit: LIMIT_MESSAGES,

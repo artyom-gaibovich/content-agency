@@ -1,16 +1,18 @@
-import {SendToRewriteRequestConverterInterface} from "./send-to-rewrite.request.converter.interface";
-import {ChannelsWithPostsModel} from "../../../content-agent/model/channel-with-posts.model";
-import {RewriteContentRequestInterface} from "../../../client/rewriter/model/req/rewrite-content.request.interface";
-import {LinkInterface} from "../../../model/link/link.interface";
+import {Module} from "@nestjs/common";
+import {SendToRewriteRequestConverter} from "./send-to-rewrite.request.converter";
+import {SEND_TO_REWRITE_REQUEST_CONVERTER} from "../../../constants/di.constants";
 
-export class SendToRewriteRequestConverter implements SendToRewriteRequestConverterInterface{
-    convert(link : LinkInterface, channelsWithPosts: ChannelsWithPostsModel, modeGen : string = 'PromptConnectText'): RewriteContentRequestInterface {
-        return {
-            url : link,
-            body : {
-                request_text : channelsWithPosts.channelsWithPosts.map(chn => chn.posts.join('\n')),
-                mode_gen : modeGen,
+@Module({
+    providers : [
+        {
+            provide : SEND_TO_REWRITE_REQUEST_CONVERTER,
+            useFactory : () => {
+                return new SendToRewriteRequestConverter()
             }
         }
-    }
+    ],
+    exports : [SEND_TO_REWRITE_REQUEST_CONVERTER]
+})
+export class SendToRewriteRequestConverterModule {
+
 }
