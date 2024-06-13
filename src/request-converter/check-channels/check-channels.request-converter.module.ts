@@ -1,17 +1,18 @@
-import {CheckChannelsRequestModel} from "../../customer-manager/model/request/check-channels/check-channels.request.model";
-import {ChannelsToCheckInterface} from "../../customer-manager/model/channels-to-check.interface";
-import {Injectable} from "@nestjs/common";
-import {CheckChannelsRequestConverterInterface} from "./check-channels.request-converter.interface";
+import {Module} from "@nestjs/common";
+import {CheckChannelsRequestConverter} from "./check-channels.request-converter";
+import {CHECK_CHANNELS_REQUEST_CONVERTER} from "../../constants/di.constants";
 
-@Injectable()
-export class CheckChannelsRequestConverter implements CheckChannelsRequestConverterInterface{
-    convert(request: CheckChannelsRequestModel): ChannelsToCheckInterface {
-        return {
-            channelsToCheck : request.links.map(link => {
-                return {
-                    channelToCheck : link
-                }
-            })
+@Module({
+    providers : [
+        {
+            provide: CHECK_CHANNELS_REQUEST_CONVERTER,
+            useFactory : () => {
+                return new CheckChannelsRequestConverter()
+            }
         }
-    }
+    ],
+    exports : [CHECK_CHANNELS_REQUEST_CONVERTER]
+})
+export class CheckChannelsRequestConverterModule{
+
 }
