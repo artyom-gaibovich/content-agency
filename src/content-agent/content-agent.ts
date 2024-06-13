@@ -16,7 +16,9 @@ export class ContentAgent implements ContentAgentInterface{
     ) {
     }
     async checkChannels(channelsToCheck: ChannelToCheckInterface[]) : Promise<CheckedChannelsModel> {
-        return await this.checker.checkChannels(channelsToCheck)
+        const res = await this.checker.checkChannels(channelsToCheck)
+        console.log(res)
+        return res
     }
     async getChannelsWithPosts(channelsToRewrite : ChannelsToRewriteModel) : Promise<ChannelsWithPostsModel> {
         console.log(this.repository)

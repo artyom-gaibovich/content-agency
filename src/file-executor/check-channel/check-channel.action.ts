@@ -10,6 +10,7 @@ export class CheckChannelAction implements CheckChannelActionInterface{
             const worker = new Worker(pathToFile.pathToFile, { workerData : channelToCheck.channelToCheck});
             worker.on('message', message => {
                 if(typeof message === 'boolean') {
+                    console.log('ТУТ ВСЁ ОК')
                     resolve({
                         status : 'OK',
                         channelLink : channelToCheck.channelToCheck.link,

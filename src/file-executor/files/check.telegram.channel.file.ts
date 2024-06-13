@@ -14,7 +14,11 @@ import {Config} from "../../config/config";
         const config = new Config()
         const client = new TelegramClient(new StringSession(config.get('STRING_SESSION')), parseInt(config.get('API_ID')), config.get('API_HASH'), {});
         await client.connect()
-        const result = await main(client, channelLink, parseInt(config.get('CHANNEL_IDENTIFIER')))
+        const result = await main(
+            client,
+            channelLink,
+            config,
+        )
         await client.disconnect()
         parentPort.postMessage(result);
     }
@@ -31,13 +35,18 @@ import {Config} from "../../config/config";
 
 })()
 
-async function main(client : TelegramClient, channelLink : string, CHANNEL_IDENTIFIER : number) {
+async function main(client : TelegramClient, channelLink : string, config) {
     const result = await client.invoke(
         new Api.channels.GetFullChannel({
             channel: channelLink,
         })
     )
+    console.log(JSON.stringify(result))
     const fullChat = (result.fullChat) as Api.TypeChatFull & { flags?: number }
-    return (fullChat.flags === CHANNEL_IDENTIFIER)
-
+    console.log(fullChat.flags, 'flag')
+    const chnId1 = parseInt(config.get('CHANNEL_IDENTIFIER_1'))
+    const chnId2 = parseInt(config.get('CHANNEL_IDENTIFIER_2'))
+    const chnId3 = parseInt(config.get('CHANNEL_IDENTIFIER_3'))
+    //const res = chnId1 === fullChat.flags || chnId2 === fullChat.flags || chnId3 === fullChat.flags
+    return result.hasOwnProperty('users')
 }
