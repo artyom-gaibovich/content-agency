@@ -5,17 +5,18 @@ import {Inject, Injectable} from "@nestjs/common";
 import {ChannelsWithPostsModel, ChannelWithPostsModel} from "../content-agent/model/channel-with-posts.model";
 import {ChannelsToRewriteModel, ChannelToRewriteModel} from "../customer-manager/model/channels-to-rewrite.model";
 import {FileManagerConfigInterface} from "./file-manager.config.interface";
-import {CheckChannelActionInterface} from "./check-channel/check-channel.action.interface";
-import {GetChannelActionInterface} from "./run-get-channel/get-channel.action.interface";
+import {CheckChannelInterface} from "./check-channel/check-channel.interface";
+import {GetChannelInterface} from "./get-channel/get-channel.interface";
+import {CHECK_CHANNEL, FILE_MANAGER_CONFIG, GET_CHANNEL} from "../constants/di.constants";
 
 
 
 @Injectable()
 export class FileManager implements FileManagerInterface{
     constructor(
-        @Inject('FILE_MANAGER_CONFIG') private config : FileManagerConfigInterface,
-        @Inject('CHECK_CHANNEL_ACTION') private checkChannelAction : CheckChannelActionInterface,
-        @Inject('GET_CHANNEL_ACTION') private getChannelAction : GetChannelActionInterface,
+        @Inject(FILE_MANAGER_CONFIG) private config : FileManagerConfigInterface,
+        @Inject(CHECK_CHANNEL) private checkChannel : CheckChannelInterface,
+        @Inject(GET_CHANNEL) private getChannel : GetChannelInterface,
     ) {
     }
 
@@ -23,7 +24,7 @@ export class FileManager implements FileManagerInterface{
     private async* checkChannelsIterator(channelsToCheck: ChannelToCheckInterface[]) {
 
         for (const channelToCheck of channelsToCheck) {
-            const checkedChannel = await this.checkChannelAction.run(channelToCheck, this.config.checkChannel)
+            const checkedChannel = await this.checkChannel.run(channelToCheck, this.config.checkChannel)
             yield checkedChannel
         }
     }
@@ -43,7 +44,7 @@ export class FileManager implements FileManagerInterface{
     private async * getChannelsIterator(channelsToRewrite : ChannelToRewriteModel[]) {
 
         for (const channelToRewrite  of channelsToRewrite) {
-            const postsFromChannel = await this.getChannelAction.run(channelToRewrite, this.config.getChannelsPath)
+            const postsFromChannel = await this.getChannel.run(channelToRewrite, this.config.getChannelsPath)
             yield postsFromChannel
         }
     }

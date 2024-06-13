@@ -1,5 +1,5 @@
-import {CheckChannelsRequestModel} from "../../customer-manager/model/request/check-channels/check-channels.request.model";
-import {ChannelsToCheckInterface} from "../../customer-manager/model/channels-to-check.interface";
+import {CheckChannelsRequestModel} from "../../../customer-manager/model/request/check-channels/check-channels.request.model";
+import {ChannelsToCheckInterface} from "../../../customer-manager/model/channels-to-check.interface";
 import {Injectable} from "@nestjs/common";
 import {CheckChannelsRequestConverterInterface} from "./check-channels.request-converter.interface";
 

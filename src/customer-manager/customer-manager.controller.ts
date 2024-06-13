@@ -5,15 +5,20 @@ import {RewritePostsRequestModel} from "./model/request/get-posts/rewrite-posts.
 import {CustomerManagerInterface} from "./customer.manager.interface";
 import {
     CheckChannelsRequestConverterInterface
-} from "../request-converter/check-channels/check-channels.request-converter.interface";
-import {RewriteContentRequestConverter} from "../request-converter/rewrite-content/rewrite-content.request-converter";
+} from "../converter/request/check-channels/check-channels.request-converter.interface";
+import {RewriteContentRequestConverter} from "../converter/request/rewrite-content/rewrite-content.request-converter";
+import {
+    CHECK_CHANNELS_REQUEST_CONVERTER,
+    CUSTOMER_MANAGER,
+    REWRITE_CONTENT_REQUEST_CONVERTER
+} from "../constants/di.constants";
 
 @Controller()
 export class CustomerManagerController {
     constructor(
-        @Inject('REWRITE_CONTENT_REQUEST_CONVERTER') private rewriteContentRequestConverter : RewriteContentRequestConverter,
-        @Inject('CHECK_CHANNELS_REQUEST_CONVERTER') private checkChannelsRequestConverter : CheckChannelsRequestConverterInterface,
-        @Inject('CUSTOMER_MANAGER') private customerManager : CustomerManagerInterface) {
+        @Inject(REWRITE_CONTENT_REQUEST_CONVERTER) private rewriteContentRequestConverter : RewriteContentRequestConverter,
+        @Inject(CHECK_CHANNELS_REQUEST_CONVERTER) private checkChannelsRequestConverter : CheckChannelsRequestConverterInterface,
+        @Inject(CUSTOMER_MANAGER) private customerManager : CustomerManagerInterface) {
     }
     @UsePipes(new ValidationPipe())
     @Post('channels/check')

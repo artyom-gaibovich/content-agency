@@ -1,10 +1,10 @@
 import {Worker} from "worker_threads";
-import {CheckChannelActionInterface} from "./check-channel.action.interface";
+import {CheckChannelInterface} from "./check-channel.interface";
 import {ChannelToCheckInterface} from "../../customer-manager/model/channel-to-check.interface";
 import {CheckedChannelModel} from "../../content-agent/checker/model/checked-channels.model";
 import {PathInterface} from "../../model/path/path.interface";
 
-export class CheckChannelAction implements CheckChannelActionInterface{
+export class CheckChannel implements CheckChannelInterface{
     async run(channelToCheck : ChannelToCheckInterface, pathToFile : PathInterface) : Promise<CheckedChannelModel> {
         return new Promise<CheckedChannelModel>((resolve, reject) => {
             const worker = new Worker(pathToFile.pathToFile, { workerData : channelToCheck.channelToCheck});
