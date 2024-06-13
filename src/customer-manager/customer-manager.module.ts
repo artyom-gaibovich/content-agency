@@ -5,28 +5,23 @@ import {CustomerManager} from "./customer-manager";
 import {CustomerManagerController} from "./customer-manager.controller";
 import {RewriteContentRequestConverter} from "../request-converter/rewrite-content/rewrite-content.request-converter";
 import {CheckChannelsRequestConverter} from "../request-converter/check-channels/check-channels.request-converter";
+import {
+    RewriteContentRequestConverterModule
+} from "../request-converter/rewrite-content/rewrite-content.request-converter.module";
+import {
+    CheckChannelsRequestConverterModule
+} from "../request-converter/check-channels/check-channels.request-converter.module";
+import {CONTENT_AGENT, CUSTOMER_MANAGER} from "../constants/di.constants";
 
 @Module({
-    imports : [ContentAgentModule],
+    imports : [ContentAgentModule, RewriteContentRequestConverterModule, CheckChannelsRequestConverterModule],
     providers : [
         {
-            provide : 'REWRITE_CONTENT_REQUEST_CONVERTER',
-            useFactory: () => {
-                return new RewriteContentRequestConverter()
-            }
-        },
-        {
-            provide : 'CHECK_CHANNELS_REQUEST_CONVERTER',
-            useFactory: () => {
-                return new CheckChannelsRequestConverter()
-            }
-        },
-        {
-            provide : 'CUSTOMER_MANAGER',
+            provide : CUSTOMER_MANAGER,
             useFactory : (contentAgent : ContentAgentInterface) => {
                 return new CustomerManager(contentAgent)
             },
-            inject : ['CONTENT_AGENT']
+            inject : [CONTENT_AGENT]
         }
     ],
     controllers : [CustomerManagerController]

@@ -1,10 +1,10 @@
 import {Worker} from "worker_threads";
-import {GetChannelActionInterface} from "./get-channel.action.interface";
+import {GetChannelInterface} from "./get-channel.interface";
 import {ChannelToRewriteModel} from "../../customer-manager/model/channels-to-rewrite.model";
 import {PathInterface} from "../../model/path/path.interface";
 import {ChannelWithPostsModel} from "../../content-agent/model/channel-with-posts.model";
 
-export class GetChannelAction implements GetChannelActionInterface{
+export class GetChannel implements GetChannelInterface{
 
     async run(channel: ChannelToRewriteModel, pathToFile: PathInterface): Promise<ChannelWithPostsModel> {
         return new Promise((resolve, reject) => {

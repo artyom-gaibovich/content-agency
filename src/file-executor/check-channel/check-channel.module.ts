@@ -1,19 +1,19 @@
 import {Module} from "@nestjs/common";
-import {CHECK_CHANNEL_ACTION} from "../../constants/di.constants";
-import {CheckChannelAction} from "./check-channel.action";
+import {CHECK_CHANNEL} from "../../constants/di.constants";
+import {CheckChannel} from "./check-channel";
 
 @Module({
     providers : [
         {
 
-            provide : CHECK_CHANNEL_ACTION,
+            provide : CHECK_CHANNEL,
             useFactory : () => {
-                return new CheckChannelAction()
+                return new CheckChannel()
             }
         }
     ],
-    exports: [CHECK_CHANNEL_ACTION]
+    exports: [CHECK_CHANNEL]
 })
-export class CheckChannelActionModule {
+export class CheckChannelModule {
 
 }
