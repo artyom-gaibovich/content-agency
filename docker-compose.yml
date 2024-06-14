@@ -1,18 +1,15 @@
 services:
   content-agency:
     ports:
-      - "8080:8080"
+      - "4000:4000"
     env_file:
       - .env
     build:
       context: .
-      dockerfile: ./docker/dev/m-gen/Dockerfile
-    container_name: app-m-gen
-    depends_on:
-      - postgresql
+      dockerfile: ./docker/dev/content-agency/Dockerfile
+    container_name: app-content-agency
     networks:
       - internal
-
 networks:
   internal:
     name: ${APP_NAME}-net
