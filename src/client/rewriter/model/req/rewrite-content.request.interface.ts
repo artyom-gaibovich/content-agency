@@ -6,7 +6,7 @@ import {LinkInterface} from "../../../../model/link/link.interface";
 export interface RewriteContentRequestInterface {
     url : LinkInterface
     body : {
-        request_text : string[]
+        request_texts : string[]
         mode_gen : string
     }
 }

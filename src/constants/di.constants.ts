@@ -32,3 +32,6 @@ export const CONTENT_AGENT = 'CONTENT_AGENT'
 export const CUSTOMER_MANAGER = 'CUSTOMER_MANAGER'
 
 
+//CONFIG
+
+export const CONFIG = 'CONFIG'
