@@ -9,6 +9,7 @@ import {
     SendToRewriteRequestConverterInterface
 } from "../converter/request/send-to-rewrite/send-to-rewrite.request.converter.interface";
 import {RewriteContentResponseInterface} from "../client/rewriter/model/res/rewrite-content.response.interface";
+import {ConfigInterface} from "../config/config.interface";
 
 
 @Injectable()
@@ -16,7 +17,8 @@ export class CustomerManager implements CustomerManagerInterface{
     constructor(
         @Inject('SEND_TO_REWRITE_REQUEST_CONVERTER') private sendToRewriteConverter : SendToRewriteRequestConverterInterface,
         @Inject('REWRITER_CLIENT') private rewriterClient : RewriterClientInterface,
-        @Inject('CONTENT_AGENT') private contentAgent : ContentAgentInterface
+        @Inject('CONTENT_AGENT') private contentAgent : ContentAgentInterface,
+        @Inject('CONFIG') private config : ConfigInterface,
     ) {
     }
 
@@ -25,7 +27,8 @@ export class CustomerManager implements CustomerManagerInterface{
     }
     async rewriteContent(channelsToRewrite : ChannelsToRewriteModel) : Promise<RewriteContentResponseInterface> {
         const data = await this.contentAgent.getChannelsWithPosts(channelsToRewrite)
-        const request = this.sendToRewriteConverter.convert({link : 'http://localhost:4040/api/gpt/generate'}, data, 'PromptConnectText')
+        const request = this.sendToRewriteConverter.convert({link : this.config.get('SEND_TO_REWRITE_URL')}, data, 'PromptConnectText')
+        console.log(request)
         return await this.rewriterClient.sendToRewrite(request)
     }
 }

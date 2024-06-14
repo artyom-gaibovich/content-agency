@@ -1,73 +1,92 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+### Инструкция по локальному развертыванию
+1. ##### Убедитесь, что у вас установлен Node.js 21 версии
+2. ##### Установите зависимости:
+    - npm install --force
+3. ##### Задайте переменные окружения
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+| Переменная              | Описание                                    | Значение(по-умолчанию)                  |
+|-------------------------|---------------------------------------------|-----------------------------------------|
+| **PORT**                | Порт                                        | 4000                                    |
+| **APP_NAME**            | Имя приложения                              | content-agency                          |
+| **SEND_TO_REWRITE_URL** | Эндпоинт к ручке для переписывания контента | http://localhost:4040/api/gpt/generate  |
+| **STRING_SESSION**                | Сессия авторизации клиента Telegram         | ""                                    |
+| **API_ID**            | Идентификатор клиента Telegram              | ""                                 |
+| **API_HASH** | Идентификатор приложения Telegram           | ""                                      |
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+4. ##### Прежде чем запускать приложение:
+    - Убедитесь, что запущено приложение RAG-model-go.
+    - У вас авторизован клиент Telegram(*на будущее, проверка авторизации STRING_SESSION, API_ID, API_HASH)
+5. Запуск:
+    - npm run start
 
-## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+##### API. Документация
 
-## Installation
+##### 1. Переписывание контента с указанных каналов
+`POST http://localhost:4000/channels/posts`
+<br>
 
-```bash
-$ npm install
+````json
+{
+   "links": [
+      {"link": "https://t.me/zakodirovanna_telega"},
+      {"link": "https://t.me/habr_media"},
+      {"link": "https://t.me/eda_academy"}
+   ],
+   "limit": 1
+}
+````
+##### Примечание:
+* limit - это количество постов, которое будет вытаскивать с 1-го канала.
+* Надо аккуратно быть с лимитом, иначе могут дать бан на несколько часов.
+* Prompt пока не передается(он захардкожжен).
+
+<br>
+
+Ответ:
+```json
+{
+    "request_texts": ["Я Саша и живу в Бразилии.", "Путешествие для человека играет важную роль", "В кафе можно отлично перекусить"],
+    "mode_gen": "PromptConnectText"
+}
 ```
 
-## Running the app
 
-```bash
-# development
-$ npm run start
+##### 2. Ручка для проверки существования каналов
+`POST http://localhost:4000/channels/check`
+<br>
 
-# watch mode
-$ npm run start:dev
+````json
+{
+   "links": [
+      {"link": "https://t.me/zakodirovanna_telega"},
+      {"link": "https://t.me/habr_media"},
+      {"link": "https://t.me/eda_academy"}
+   ],
+}
+````
 
-# production mode
-$ npm run start:prod
+<br>
+
+Ответ:
+```json
+{
+   "checkedChannels": [
+      {
+         "status": "OK",
+         "channelLink": "https://t.me/habr_media",
+         "isChannelExists": true
+      },
+      {
+         "status": "ERROR",
+         "channelLink": "https://t.me/не существует",
+         "isChannelExists": false
+      },
+      {
+         "status": "OK",
+         "channelLink": "https://t.me/eda_academy",
+         "isChannelExists": true
+      }
+   ]
+}
 ```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).

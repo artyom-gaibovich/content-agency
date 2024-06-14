@@ -8,8 +8,8 @@ export class SendToRewriteRequestConverter implements SendToRewriteRequestConver
         return {
             url : link,
             body : {
-                request_text : channelsWithPosts.channelsWithPosts.filter(chn=>chn.posts).map(chn => {
-                        return chn.posts.join('\n')
+                request_texts : channelsWithPosts.channelsWithPosts.filter(chn=>chn.posts).map(chn => {
+                        return chn.posts.toString().replace(/\s+/g, ' ').trim().slice(0,1000)
                 }),
                 mode_gen : modeGen,
             }

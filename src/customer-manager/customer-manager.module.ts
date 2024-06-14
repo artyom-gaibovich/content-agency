@@ -10,6 +10,7 @@ import {
     CheckChannelsRequestConverterModule
 } from "../converter/request/check-channels/check-channels.request-converter.module";
 import {
+    CONFIG,
     CONTENT_AGENT,
     CUSTOMER_MANAGER,
     REWRITER_CLIENT,
@@ -23,20 +24,23 @@ import {
 } from "../converter/request/send-to-rewrite/send-to-rewrite.request.converter.interface";
 import {RewriterClientInterface} from "../client/rewriter/rewriter.client.interface";
 import {RewriterClientModule} from "../client/rewriter/rewriter.client.module";
+import {ConfigInterface} from "../config/config.interface";
+import {ConfigModule} from "../config/config.module";
 
 @Module({
-    imports : [RewriterClientModule, SendToRewriteRequestConverterModule, ContentAgentModule, RewriteContentRequestConverterModule, CheckChannelsRequestConverterModule],
+    imports : [ConfigModule, RewriterClientModule, SendToRewriteRequestConverterModule, ContentAgentModule, RewriteContentRequestConverterModule, CheckChannelsRequestConverterModule],
     providers : [
         {
             provide : CUSTOMER_MANAGER,
             useFactory : (
                 sendToRewriteConverter : SendToRewriteRequestConverterInterface,
                 rewriterClient : RewriterClientInterface,
-                contentAgent : ContentAgentInterface
+                contentAgent : ContentAgentInterface,
+                config : ConfigInterface,
             ) => {
-                return new CustomerManager(sendToRewriteConverter, rewriterClient, contentAgent,)
+                return new CustomerManager(sendToRewriteConverter, rewriterClient, contentAgent, config)
             },
-            inject : [SEND_TO_REWRITE_REQUEST_CONVERTER, REWRITER_CLIENT,  CONTENT_AGENT]
+            inject : [SEND_TO_REWRITE_REQUEST_CONVERTER, REWRITER_CLIENT,  CONTENT_AGENT, CONFIG]
         }
     ],
     controllers : [CustomerManagerController]
