@@ -44,9 +44,6 @@ async function main(client : TelegramClient, channelLink : string, config) {
     console.log(JSON.stringify(result))
     const fullChat = (result.fullChat) as Api.TypeChatFull & { flags?: number }
     console.log(fullChat.flags, 'flag')
-    const chnId1 = parseInt(config.get('CHANNEL_IDENTIFIER_1'))
-    const chnId2 = parseInt(config.get('CHANNEL_IDENTIFIER_2'))
-    const chnId3 = parseInt(config.get('CHANNEL_IDENTIFIER_3'))
     //const res = chnId1 === fullChat.flags || chnId2 === fullChat.flags || chnId3 === fullChat.flags
     return result.hasOwnProperty('users')
 }
