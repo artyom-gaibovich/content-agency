@@ -1,0 +1,18 @@
+services:
+  m-gen:
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: ./docker/dev/m-gen/Dockerfile
+    container_name: app-m-gen
+    depends_on:
+      - postgresql
+    networks:
+      - internal
+
+networks:
+  internal:
+    name: ${APP_NAME}-net
