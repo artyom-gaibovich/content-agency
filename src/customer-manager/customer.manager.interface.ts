@@ -3,8 +3,9 @@ import {CheckedChannelsModel} from "../content-agent/checker/model/checked-chann
 import {ChannelsToRewriteModel} from "./model/channels-to-rewrite.model";
 import {ChannelsWithPostsModel} from "../content-agent/model/channel-with-posts.model";
 import {RewriteContentResponseInterface} from "../client/rewriter/model/res/rewrite-content.response.interface";
+import {PromptInterface} from "../model/prompt/prompt.interface";
 
 export interface CustomerManagerInterface {
     checkChannels(channelsToCheck : ChannelsToCheckInterface) : Promise<CheckedChannelsModel>
-    rewriteContent(channelsToRewrite : ChannelsToRewriteModel) : Promise<RewriteContentResponseInterface>
+    rewriteContent(channelsToRewrite : ChannelsToRewriteModel, prompt : PromptInterface) : Promise<RewriteContentResponseInterface>
 }
