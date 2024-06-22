@@ -8,8 +8,4 @@ services:
       context: .
       dockerfile: ./docker/dev/content-agency/Dockerfile
     container_name: app-content-agency
-    networks:
-      - internal
-networks:
-  internal:
-    name: ${APP_NAME}-net
+
