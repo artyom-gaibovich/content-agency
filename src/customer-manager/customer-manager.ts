@@ -8,9 +8,11 @@ import {RewriterClientInterface} from "../client/rewriter/rewriter.client.interf
 import {
     SendToRewriteRequestConverterInterface
 } from "../converter/request/send-to-rewrite/send-to-rewrite.request.converter.interface";
-import {RewriteContentResponseInterface} from "../client/rewriter/model/res/rewrite-content.response.interface";
 import {ConfigInterface} from "../config/config.interface";
 import {PromptInterface} from "../model/prompt/prompt.interface";
+import {ChannelsWithPostsModel} from "../content-agent/model/channel-with-posts.model";
+import {SEND_TO_REWRITE_URL} from "../constants/env.constants";
+import {RewriteContentResponseInterface} from "../client/rewriter/model/res/rewrite-content.response.interface";
 
 
 @Injectable()
@@ -28,7 +30,7 @@ export class CustomerManager implements CustomerManagerInterface{
     }
     async rewriteContent(channelsToRewrite : ChannelsToRewriteModel, prompt : PromptInterface) : Promise<RewriteContentResponseInterface> {
         const request = this.sendToRewriteConverter.convert(
-            {link : this.config.get('SEND_TO_REWRITE_URL')},
+            {link : this.config.get(SEND_TO_REWRITE_URL)},
             await this.contentAgent.getChannelsWithPosts(channelsToRewrite),
             prompt
         )

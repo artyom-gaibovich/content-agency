@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import {Module} from '@nestjs/common';
 import {ChannelCheckerInterface} from "./checker/channel.checker.interface";
 import {ContentAgent} from "./content-agent";
 import {ChannelRepositoryInterface} from "./repository/channel/channel.repository.interface";
@@ -7,17 +7,13 @@ import {ChannelCheckerModule} from "./checker/channel.checker.module";
 import {CHANNEL_CHECKER, CHANNEL_REPOSITORY, CONTENT_AGENT} from "../constants/di.constants";
 
 
-
-
-
-
 @Module({
     imports : [ChannelCheckerModule, ChannelRepositoryModule],
     providers : [
         {
             provide : CONTENT_AGENT,
             useFactory: (repository : ChannelRepositoryInterface, channelChecker : ChannelCheckerInterface) => {
-                return new ContentAgent(repository ,channelChecker)
+                return new ContentAgent(channelChecker, repository)
             },
             inject : [CHANNEL_REPOSITORY, CHANNEL_CHECKER]
         }

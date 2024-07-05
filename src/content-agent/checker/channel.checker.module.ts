@@ -1,20 +1,18 @@
 import {Module} from "@nestjs/common";
-import {PathInterface} from "../../model/path/path.interface";
-import * as path from "path";
 import {ChannelChecker} from "./channel.checker";
-import {FileManagerModule} from "../../file-executor/file-manager.module";
-import {FileManagerInterface} from "../../file-executor/file-manager.interface";
-import {CHANNEL_CHECKER, FILE_MANAGER} from "../../constants/di.constants";
+import {CHANNEL_CHECKER, FILE_MANAGER, MT_PROTO_CLIENT} from "../../constants/di.constants";
+import {MTProtoClientModule} from "../../client/mt-proto/mt-proto.client.module";
+import {MtProtoClientInterface} from "../../client/mt-proto/mt-proto.client.interface";
 
 @Module({
-    imports : [FileManagerModule],
+    imports : [MTProtoClientModule],
     providers : [
         {
             provide : CHANNEL_CHECKER,
-            useFactory : (fileManager : FileManagerInterface) => {
-                return new ChannelChecker(fileManager)
+            useFactory : (MTProtoClient : MtProtoClientInterface) => {
+                return new ChannelChecker(MTProtoClient)
             },
-            inject : [FILE_MANAGER]
+            inject : [MT_PROTO_CLIENT]
         }
     ],
     exports : [CHANNEL_CHECKER]
