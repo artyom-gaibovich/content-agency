@@ -29,7 +29,6 @@ import {ConfigModule} from "../config/config.module";
 import {PromptConverterInterface} from "../converter/prompt/prompt.converter.interface";
 import {PromptConverterModule} from "../converter/prompt/prompt.converter.module";
 
-//ЕРУНДА ПОЛНАЯ ТАК ДЕЛАТЬ ИНСТАНС СОЗДАВТАЬ
 @Module({
     imports : [PromptConverterModule, ConfigModule, RewriterClientModule, SendToRewriteRequestConverterModule, ContentAgentModule, RewriteContentRequestConverterModule, CheckChannelsRequestConverterModule],
     providers : [

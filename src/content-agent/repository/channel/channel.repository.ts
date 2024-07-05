@@ -12,8 +12,7 @@ import {message} from "telegram/client";
 export class ChannelRepository implements ChannelRepositoryInterface {
     constructor(
         @Inject(MESSAGE_EXTRACTOR) private messageExtractor : MessageExtractorInterface,
-        @Inject(MT_PROTO_CLIENT) private MTProtoClient : MtProtoClientInterface,
-        @Inject(FILE_MANAGER) private fileManager : FileManagerInterface) {
+        @Inject(MT_PROTO_CLIENT) private MTProtoClient : MtProtoClientInterface){
 
     }
     async findByLinks(channelsToRewrite : ChannelsToRewriteModel) : Promise<ChannelsWithPostsModel> {
@@ -21,8 +20,6 @@ export class ChannelRepository implements ChannelRepositoryInterface {
         if (!result) {
             throw new BadRequestException('NOT FOUND')
         }
-        // /    channelLink : string
-        //     posts? : string[]
         return {
             channelsWithPosts : this.messageExtractor.extract(result)
         }

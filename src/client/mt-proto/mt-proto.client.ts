@@ -1,7 +1,7 @@
 import {MtProtoClientInterface} from "./mt-proto.client.interface";
-import {ChannelsToRewriteModel, ChannelToRewriteModel} from "../../customer-manager/model/channels-to-rewrite.model";
+import {ChannelToRewriteModel} from "../../customer-manager/model/channels-to-rewrite.model";
 import {Api, helpers, TelegramClient} from "telegram";
-import {BadRequestException, Inject, Injectable} from "@nestjs/common";
+import {Inject, Injectable} from "@nestjs/common";
 import {TELEGRAM_CLIENT} from "../../constants/di.constants";
 import {GetMessagesResponseInterface} from "./res/get-messages-response.interface";
 
