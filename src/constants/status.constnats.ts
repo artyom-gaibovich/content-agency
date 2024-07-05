@@ -1,0 +1,3 @@
+
+export const IS_CHANNEL_EXISTS = 'IS_CHANNEL_EXISTS'
+

@@ -1,13 +1,12 @@
 import {Inject, Injectable} from "@nestjs/common";
 import {ContentAgentInterface} from "./content-agent.interface";
 import {ChannelToCheckInterface} from "../customer-manager/model/channel-to-check.interface";
-import {CheckedChannelModel, CheckedChannelsModel} from "./checker/model/checked-channels.model";
+import {CheckedChannelInterface, CheckedChannelsInterface} from "./checker/model/checked-channels.interface";
 import {ChannelsToRewriteModel} from "../customer-manager/model/channels-to-rewrite.model";
-import {ChannelsWithPostsModel} from "./model/channel-with-posts.model";
 import {ChannelRepositoryInterface} from "./repository/channel/channel.repository.interface";
-import {MtProtoClientInterface} from "../client/mt-proto/mt-proto.client.interface";
-import {CHANNEL_CHECKER, CHANNEL_REPOSITORY, MT_PROTO_CLIENT} from "../constants/di.constants";
+import {CHANNEL_CHECKER, CHANNEL_REPOSITORY} from "../constants/di.constants";
 import {ChannelCheckerInterface} from "./checker/channel.checker.interface";
+import {ChannelsWithPostsInterface} from "./model/channel-with-posts.interface";
 
 
 @Injectable()
@@ -17,13 +16,13 @@ export class ContentAgent implements ContentAgentInterface{
         @Inject(CHANNEL_REPOSITORY) private repository : ChannelRepositoryInterface,
     ) {
     }
-    async checkChannels(channelsToCheck: ChannelToCheckInterface[]) : Promise<CheckedChannelsModel> {
+    async checkChannels(channelsToCheck: ChannelToCheckInterface[]) : Promise<CheckedChannelsInterface> {
         const res = await this.checker.checkChannels(channelsToCheck)
         return {
-            checkedChannels : res as CheckedChannelModel[]
+            checkedChannels : res as CheckedChannelInterface[]
         }
     }
-    async getChannelsWithPosts(channelsToRewrite : ChannelsToRewriteModel) : Promise<ChannelsWithPostsModel> {
+    async getChannelsWithPosts(channelsToRewrite : ChannelsToRewriteModel) : Promise<ChannelsWithPostsInterface> {
         return await this.repository.findByLinks(channelsToRewrite)
     }
 

@@ -26,7 +26,6 @@ import {RewriterClientInterface} from "../client/rewriter/rewriter.client.interf
 import {RewriterClientModule} from "../client/rewriter/rewriter.client.module";
 import {ConfigInterface} from "../config/config.interface";
 import {ConfigModule} from "../config/config.module";
-import {PromptConverterInterface} from "../converter/prompt/prompt.converter.interface";
 import {PromptConverterModule} from "../converter/prompt/prompt.converter.module";
 
 @Module({
