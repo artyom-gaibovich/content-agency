@@ -7,5 +7,5 @@ import {PromptInterface} from "../model/prompt/prompt.interface";
 
 export interface CustomerManagerInterface {
     checkChannels(channelsToCheck : ChannelsToCheckInterface) : Promise<CheckedChannelsModel>
-    rewriteContent(channelsToRewrite : ChannelsToRewriteModel, prompt : PromptInterface) : Promise<RewriteContentResponseInterface>
+    rewriteContent(channelsToRewrite : ChannelsToRewriteModel, prompt : PromptInterface) : Promise<ChannelsWithPostsModel>
 }

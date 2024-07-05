@@ -11,6 +11,7 @@ import {
 import {RewriteContentResponseInterface} from "../client/rewriter/model/res/rewrite-content.response.interface";
 import {ConfigInterface} from "../config/config.interface";
 import {PromptInterface} from "../model/prompt/prompt.interface";
+import {ChannelsWithPostsModel} from "../content-agent/model/channel-with-posts.model";
 
 
 @Injectable()
@@ -26,12 +27,13 @@ export class CustomerManager implements CustomerManagerInterface{
     async checkChannels(channelsToCheck : ChannelsToCheckInterface): Promise<CheckedChannelsModel> {
         return await this.contentAgent.checkChannels(channelsToCheck.channelsToCheck)
     }
-    async rewriteContent(channelsToRewrite : ChannelsToRewriteModel, prompt : PromptInterface) : Promise<RewriteContentResponseInterface> {
-        const request = this.sendToRewriteConverter.convert(
+    async rewriteContent(channelsToRewrite : ChannelsToRewriteModel, prompt : PromptInterface) : Promise<ChannelsWithPostsModel> {
+        return await this.contentAgent.getChannelsWithPosts(channelsToRewrite)
+        /*const request = this.sendToRewriteConverter.convert(
             {link : this.config.get('SEND_TO_REWRITE_URL')},
             await this.contentAgent.getChannelsWithPosts(channelsToRewrite),
             prompt
         )
-        return await this.rewriterClient.sendToRewrite(request)
+        return await this.rewriterClient.sendToRewrite(request)*/
     }
 }
