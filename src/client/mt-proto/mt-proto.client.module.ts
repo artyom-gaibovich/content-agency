@@ -13,7 +13,9 @@ import {API_HASH, API_ID, STRING_SESSION} from "../../constants/env.constants";
         {
             provide : TELEGRAM_CLIENT,
             useFactory : (configService : ConfigInterface) => {
-                return new TelegramClient(new StringSession(configService.get(STRING_SESSION)), parseInt(configService.get(API_ID)), configService.get(API_HASH), {})
+                return new TelegramClient(new StringSession(configService.get(STRING_SESSION)), parseInt(configService.get(API_ID)), configService.get(API_HASH), {
+                    timeout : 30,
+                })
             },
             inject : [CONFIG]
         },

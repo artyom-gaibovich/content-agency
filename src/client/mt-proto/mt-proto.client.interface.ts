@@ -1,7 +1,9 @@
 import {Api} from "telegram";
-import {ChannelsToRewriteModel} from "../../customer-manager/model/channels-to-rewrite.model";
+import {ChannelsToRewriteModel, ChannelToRewriteModel} from "../../customer-manager/model/channels-to-rewrite.model";
 import {helpers} from "telegram";
+import {GetMessagesResponseInterface} from "./res/get-messages-response.interface";
 
 export interface MtProtoClientInterface {
-    getMessages(channelsToRewriteModel : ChannelsToRewriteModel) : Promise<helpers.TotalList<Api.Message>>
+    getMessages(channelToRewriteModel : ChannelToRewriteModel) : Promise<GetMessagesResponseInterface>
+    getAllMessages(channelsToRewrite: ChannelToRewriteModel[]) : Promise<GetMessagesResponseInterface[]>
 }

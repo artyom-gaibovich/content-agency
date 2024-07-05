@@ -1,26 +1,40 @@
 import {MtProtoClientInterface} from "./mt-proto.client.interface";
-import {ChannelsToRewriteModel} from "../../customer-manager/model/channels-to-rewrite.model";
+import {ChannelsToRewriteModel, ChannelToRewriteModel} from "../../customer-manager/model/channels-to-rewrite.model";
 import {Api, helpers, TelegramClient} from "telegram";
 import {BadRequestException, Inject, Injectable} from "@nestjs/common";
 import {TELEGRAM_CLIENT} from "../../constants/di.constants";
+import {GetMessagesResponseInterface} from "./res/get-messages-response.interface";
 
 @Injectable()
 export class MTProtoClient implements MtProtoClientInterface {
     constructor(@Inject(TELEGRAM_CLIENT) private readonly telegramClient : TelegramClient) {
     }
-    async getMessages(channelsToRewriteModel: ChannelsToRewriteModel): Promise<helpers.TotalList<Api.Message>> {
+    async getMessages(channelToRewrite : ChannelToRewriteModel): Promise<GetMessagesResponseInterface> {
         try {
             await this.telegramClient.connect()
-            const result = await this.telegramClient.getMessages(channelsToRewriteModel.channelsToRewrite[0].link.link as string, {
+            const result = await this.telegramClient.getMessages(channelToRewrite.link.link, {
                 limit : 10
             })
-            await this.telegramClient.disconnect()
-            return result as helpers.TotalList<Api.Message>
+            await this.telegramClient.destroy()
+            return {
+                channelLink : channelToRewrite.link.link,
+                message : result as helpers.TotalList<Api.Message>
+            }
         }
         catch (e) {
-            await this.telegramClient.disconnect()
-            throw new BadRequestException("NOT FOUND")
+            await this.telegramClient.destroy()
+            return {
+                channelLink : channelToRewrite.link.link,
+                message : '404_NOT_FOUND'
+            }
         }
-
+    }
+    async getAllMessages(channelsToRewrite: ChannelToRewriteModel[]) : Promise<GetMessagesResponseInterface[]>{
+        const messagesArray : GetMessagesResponseInterface[] = []
+        for await (const channelToRewrite of channelsToRewrite) {
+            let message = await this.getMessages(channelToRewrite)
+            messagesArray.push(message)
+        }
+        return messagesArray
     }
 }

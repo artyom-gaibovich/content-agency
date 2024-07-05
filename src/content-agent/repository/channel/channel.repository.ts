@@ -6,6 +6,7 @@ import {FileManagerInterface} from "../../../file-executor/file-manager.interfac
 import {FILE_MANAGER, MESSAGE_EXTRACTOR, MT_PROTO_CLIENT} from "../../../constants/di.constants";
 import {MtProtoClientInterface} from "../../../client/mt-proto/mt-proto.client.interface";
 import {MessageExtractorInterface} from "../../extractor/message.extractor.interface";
+import {message} from "telegram/client";
 
 @Injectable()
 export class ChannelRepository implements ChannelRepositoryInterface {
@@ -16,18 +17,14 @@ export class ChannelRepository implements ChannelRepositoryInterface {
 
     }
     async findByLinks(channelsToRewrite : ChannelsToRewriteModel) : Promise<ChannelsWithPostsModel> {
-        const result = await this.MTProtoClient.getMessages(channelsToRewrite)
+        const result = await this.MTProtoClient.getAllMessages(channelsToRewrite.channelsToRewrite)
         if (!result) {
             throw new BadRequestException('NOT FOUND')
         }
-
+        // /    channelLink : string
+        //     posts? : string[]
         return {
-            channelsWithPosts : [
-                {
-                    channelLink : channelsToRewrite.channelsToRewrite[0].link.link,
-                    posts : this.messageExtractor.extract(result),
-                }
-            ]
+            channelsWithPosts : this.messageExtractor.extract(result)
         }
     }
 }
