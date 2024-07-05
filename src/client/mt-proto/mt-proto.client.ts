@@ -5,8 +5,10 @@ import {Inject, Injectable} from "@nestjs/common";
 import {TELEGRAM_CLIENT} from "../../constants/di.constants";
 import {GetMessagesResponseInterface} from "./res/get-messages-response.interface";
 import {ChannelToCheckInterface} from "../../customer-manager/model/channel-to-check.interface";
-import {CheckedChannelModel} from "../../content-agent/checker/model/checked-channels.model";
+import {CheckedChannelInterface} from "../../content-agent/checker/model/checked-channels.interface";
 import {CHANNEL_NOT_FOUND} from "../../constants/errors.constants";
+import {PROPERTY_USERS} from "../../constants/prop.constants";
+import {IS_CHANNEL_EXISTS} from "../../constants/status.constnats";
 
 @Injectable()
 export class MTProtoClient implements MtProtoClientInterface {
@@ -16,7 +18,7 @@ export class MTProtoClient implements MtProtoClientInterface {
         try {
             await this.telegramClient.connect()
             const result = await this.telegramClient.getMessages(channelToRewrite.link.link, {
-                limit : 10
+                limit : channelToRewrite.limit
             })
             await this.telegramClient.destroy()
             return {
@@ -41,7 +43,7 @@ export class MTProtoClient implements MtProtoClientInterface {
         return messagesArray
     }
 
-    async checkChannel(channelToCheck: ChannelToCheckInterface): Promise<CheckedChannelModel> {
+    async checkChannel(channelToCheck: ChannelToCheckInterface): Promise<CheckedChannelInterface> {
         try {
             await this.telegramClient.connect()
             const result = await this.telegramClient.invoke(
@@ -51,9 +53,9 @@ export class MTProtoClient implements MtProtoClientInterface {
             )
             await this.telegramClient.destroy()
             return {
-                status : 'Channel is exists',
+                status : IS_CHANNEL_EXISTS,
                 channelLink : channelToCheck.channelToCheck.link,
-                isChannelExists : result.hasOwnProperty('users')
+                isChannelExists : result.hasOwnProperty(PROPERTY_USERS)
             }
         }
         catch (e) {
@@ -66,8 +68,8 @@ export class MTProtoClient implements MtProtoClientInterface {
         }
     }
 
-    async checkChannels(channelsToCheck: ChannelToCheckInterface[]): Promise<CheckedChannelModel[]> {
-        const checkedChannels : CheckedChannelModel[] = []
+    async checkChannels(channelsToCheck: ChannelToCheckInterface[]): Promise<CheckedChannelInterface[]> {
+        const checkedChannels : CheckedChannelInterface[] = []
         for await (const channelToCheck of channelsToCheck) {
             let message = await this.checkChannel(channelToCheck)
             checkedChannels.push(message)

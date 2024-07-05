@@ -25,7 +25,6 @@ export class CustomerManagerController {
     }
 
     @UsePipes(new ValidationPipe())
-
     @Get('test')
     async test() {
         return 'Application is working'

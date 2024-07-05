@@ -1,9 +1,9 @@
 import {ChannelCheckerInterface} from "./channel.checker.interface";
-import {CheckedChannelModel, CheckedChannelsModel} from "./model/checked-channels.model";
 import {ChannelToCheckInterface} from "../../customer-manager/model/channel-to-check.interface";
 import {Inject, Injectable} from "@nestjs/common";
-import {FILE_MANAGER, MT_PROTO_CLIENT} from "../../constants/di.constants";
+import {MT_PROTO_CLIENT} from "../../constants/di.constants";
 import {MtProtoClientInterface} from "../../client/mt-proto/mt-proto.client.interface";
+import {CheckedChannelInterface} from "./model/checked-channels.interface";
 
 
 @Injectable()
@@ -12,7 +12,7 @@ export class ChannelChecker implements ChannelCheckerInterface {
     ) {
     }
 
-    async checkChannels(channelsToCheck: ChannelToCheckInterface[]): Promise<CheckedChannelModel[]> {
+    async checkChannels(channelsToCheck: ChannelToCheckInterface[]): Promise<CheckedChannelInterface[]> {
         const result = await this.MTProtoClient.checkChannels(channelsToCheck)
         return result.map(channel => {
             return {
@@ -20,6 +20,6 @@ export class ChannelChecker implements ChannelCheckerInterface {
                 isChannelExists : channel.isChannelExists,
                 status : channel.status,
             }
-        }) as CheckedChannelModel[]
+        }) as CheckedChannelInterface[]
     }
 }
