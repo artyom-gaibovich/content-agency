@@ -17,8 +17,8 @@ import {GetChannelInterface} from "./get-channel/get-channel.interface";
             provide : FILE_MANAGER_CONFIG,
             useFactory : () => {
                 return {
-                    checkChannel : {pathToFile : path.join(__dirname, 'files', 'check.telegram.channel.file.js')},
-                    getChannelsPath : {pathToFile : path.join(__dirname, 'files', 'get-posts-from-telegram-channel.file.js')}
+                    checkChannel : {pathToFile : path.join(__dirname, 'files', 'check.mt-proto.channel.file.js')},
+                    getChannelsPath : {pathToFile : path.join(__dirname, 'files', 'get-posts-from-mt-proto-channel.file.js')}
 
                 } as FileManagerConfigInterface
             }
