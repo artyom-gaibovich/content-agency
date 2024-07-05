@@ -5,7 +5,7 @@ import {ChannelWithPostsModel} from "../model/channel-with-posts.model";
 
 export class MessageExtractor implements MessageExtractorInterface{
     extract(messages : GetMessagesResponseInterface[]) {
-        const result = messages.filter(msg => msg.message !== '404_NOT_FOUND')
+        const result = messages.filter(msg => msg.message !== "CHANNEL_NOT_FOUND")
         return result.map(msg => {
             return {
                 channelLink : msg.channelLink,

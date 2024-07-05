@@ -13,7 +13,7 @@ import {CHANNEL_CHECKER, CHANNEL_REPOSITORY, CONTENT_AGENT} from "../constants/d
         {
             provide : CONTENT_AGENT,
             useFactory: (repository : ChannelRepositoryInterface, channelChecker : ChannelCheckerInterface) => {
-                return new ContentAgent(repository ,channelChecker)
+                return new ContentAgent(channelChecker, repository)
             },
             inject : [CHANNEL_REPOSITORY, CHANNEL_CHECKER]
         }

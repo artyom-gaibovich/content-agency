@@ -11,7 +11,7 @@ import {MessageExtractor} from "../../extractor/message.extractor";
     providers : [
         {
             provide : CHANNEL_REPOSITORY,
-            useFactory: (messageExtractor : MessageExtractor, MTProtoClient : MtProtoClientInterface, fileManager : FileManagerInterface) => {
+            useFactory: (messageExtractor : MessageExtractor, MTProtoClient : MtProtoClientInterface) => {
                 return new ChannelRepository(messageExtractor, MTProtoClient)
             },
             inject : [MESSAGE_EXTRACTOR, MT_PROTO_CLIENT]

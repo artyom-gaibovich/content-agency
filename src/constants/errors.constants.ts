@@ -1,0 +1,4 @@
+
+export const NOT_FOUND = 'NOT FOUND'
+
+export const CHANNEL_NOT_FOUND = 'CHANNEL_NOT_FOUND'

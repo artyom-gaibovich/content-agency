@@ -2,11 +2,10 @@ import {ChannelRepositoryInterface} from "./channel.repository.interface";
 import {ChannelsWithPostsModel} from "../../model/channel-with-posts.model";
 import {BadRequestException, Inject, Injectable} from "@nestjs/common";
 import {ChannelsToRewriteModel} from "../../../customer-manager/model/channels-to-rewrite.model";
-import {FileManagerInterface} from "../../../file-executor/file-manager.interface";
-import {FILE_MANAGER, MESSAGE_EXTRACTOR, MT_PROTO_CLIENT} from "../../../constants/di.constants";
+import {MESSAGE_EXTRACTOR, MT_PROTO_CLIENT} from "../../../constants/di.constants";
 import {MtProtoClientInterface} from "../../../client/mt-proto/mt-proto.client.interface";
 import {MessageExtractorInterface} from "../../extractor/message.extractor.interface";
-import {message} from "telegram/client";
+import {NOT_FOUND} from "../../../constants/errors.constants";
 
 @Injectable()
 export class ChannelRepository implements ChannelRepositoryInterface {
@@ -18,7 +17,7 @@ export class ChannelRepository implements ChannelRepositoryInterface {
     async findByLinks(channelsToRewrite : ChannelsToRewriteModel) : Promise<ChannelsWithPostsModel> {
         const result = await this.MTProtoClient.getAllMessages(channelsToRewrite.channelsToRewrite)
         if (!result) {
-            throw new BadRequestException('NOT FOUND')
+            throw new BadRequestException(NOT_FOUND)
         }
         return {
             channelsWithPosts : this.messageExtractor.extract(result)

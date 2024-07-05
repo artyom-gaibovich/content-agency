@@ -27,12 +27,11 @@ export class CustomerManager implements CustomerManagerInterface{
         return await this.contentAgent.checkChannels(channelsToCheck.channelsToCheck)
     }
     async rewriteContent(channelsToRewrite : ChannelsToRewriteModel, prompt : PromptInterface) : Promise<ChannelsWithPostsModel> {
-        return await this.contentAgent.getChannelsWithPosts(channelsToRewrite)
-        /*const request = this.sendToRewriteConverter.convert(
+        const request = this.sendToRewriteConverter.convert(
             {link : this.config.get('SEND_TO_REWRITE_URL')},
             await this.contentAgent.getChannelsWithPosts(channelsToRewrite),
             prompt
         )
-        return await this.rewriterClient.sendToRewrite(request)*/
+        return await this.rewriterClient.sendToRewrite(request)
     }
 }
