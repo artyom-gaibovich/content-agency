@@ -2,7 +2,6 @@ import {IsArray, IsIn, IsNumber, IsOptional, IsString, ValidateNested} from "cla
 import {Type} from "class-transformer";
 import {RewritePostsRequestModel} from "./rewrite-posts.request.model";
 import {LinkDto} from "../../../../model/link/link.dto";
-import {PromptDto} from "../../../../model/prompt/prompt.dto";
 import {TypePrompt} from "../../../../model/prompt/prompt.interface";
 
 
@@ -17,6 +16,5 @@ export class RewritePostsRequestDto implements RewritePostsRequestModel{
     limit?: number;
 
     @IsString()
-    @IsIn(['PromptConnectText', 'PromptDelAdvText', 'PromptChangeText'])
-    prompt : TypePrompt
+    prompt : string
 }

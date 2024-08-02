@@ -1,19 +1,18 @@
-import {Body, Controller, Get, Inject, Post, UsePipes, ValidationPipe} from '@nestjs/common';
-import {CustomerManager} from "./customer-manager";
-import {CheckChannelsRequestDto} from "./model/request/check-channels/check-channels.request.dto";
-import {RewritePostsRequestModel} from "./model/request/get-posts/rewrite-posts.request.model";
-import {CustomerManagerInterface} from "./customer.manager.interface";
+import { Body, Controller, Get, Inject, Post, UsePipes, ValidationPipe } from "@nestjs/common";
+import { CheckChannelsRequestDto } from "./model/request/check-channels/check-channels.request.dto";
+import { CustomerManagerInterface } from "./customer.manager.interface";
 import {
     CheckChannelsRequestConverterInterface
 } from "../converter/request/check-channels/check-channels.request-converter.interface";
-import {RewriteContentRequestConverter} from "../converter/request/rewrite-content/rewrite-content.request-converter";
+import { RewriteContentRequestConverter } from "../converter/request/rewrite-content/rewrite-content.request-converter";
 import {
     CHECK_CHANNELS_REQUEST_CONVERTER,
-    CUSTOMER_MANAGER, PROMPT_CONVERTER,
+    CUSTOMER_MANAGER,
+    PROMPT_CONVERTER,
     REWRITE_CONTENT_REQUEST_CONVERTER
 } from "../constants/di.constants";
-import {RewritePostsRequestDto} from "./model/request/get-posts/rewrite-posts.request.dto";
-import {PromptConverterInterface} from "../converter/prompt/prompt.converter.interface";
+import { RewritePostsRequestDto } from "./model/request/get-posts/rewrite-posts.request.dto";
+import { PromptConverterInterface } from "../converter/prompt/prompt.converter.interface";
 
 @Controller()
 export class CustomerManagerController {

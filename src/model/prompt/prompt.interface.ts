@@ -1,6 +1,5 @@
+export type TypePrompt = string;
 
-
-export type TypePrompt = 'PromptConnectText' | 'PromptDelAdvText' | 'PromptChangeText'
 export interface PromptInterface {
-    prompt : TypePrompt
+  prompt: TypePrompt;
 }
