@@ -1,1 +1,1 @@
-export const PROPERTY_USERS = 'USERS'
+export const PROPERTY_USERS = 'users'
