@@ -38,6 +38,7 @@ export class MTProtoClient implements MtProtoClientInterface {
         const messagesArray : GetMessagesResponseInterface[] = []
         for await (const channelToRewrite of channelsToRewrite) {
             let message = await this.getMessages(channelToRewrite)
+            console.log(message)
             messagesArray.push(message)
         }
         return messagesArray

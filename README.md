@@ -33,7 +33,7 @@
       {"link": "https://t.me/habr_media"},
       {"link": "https://t.me/eda_academy"}
    ],
-   "limit": 1
+   "limit": 3
 }
 ````
 ##### Примечание:
