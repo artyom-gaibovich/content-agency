@@ -10,7 +10,7 @@ export class SendToRewriteRequestConverter implements SendToRewriteRequestConver
             url : link,
             body : {
                 request_texts : channelsWithPosts.channelsWithPosts.filter(chn=>chn.posts).map(chn => {
-                        return chn.posts.toString().replace(/\s+/g, ' ').trim().slice(0,1000)
+                        return chn.posts.toString().replace(/\s+/g, ' ').trim().slice(0,4096)
                 }),
                 mode_gen : prompt.prompt,
             }
